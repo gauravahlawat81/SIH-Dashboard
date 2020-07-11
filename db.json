@@ -1,0 +1,21 @@
+{
+    "data":
+    {
+        "officer-id"        :212342,
+        "school-id"         :21223343,
+        "average_score"     :9.2,
+        "hygiene_score"     :7.9,
+        "hygiene-review"    :"Can be improved",
+        "teaching_score"    :8.9,
+        "teaching-review"   :"very good",
+        "school_score"      :9.3,
+        "school-review"     :"very good",
+        "student_score"     :8.8,
+        "student-review"    :"good",
+        "happiness_score"    :9.1,
+        "happiness-review"  :"very good",
+        "reviewData"        :"Very good school",
+        "creationDate"      :"12th october 2020"
+    }
+    
+}

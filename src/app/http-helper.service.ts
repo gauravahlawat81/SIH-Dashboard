@@ -8,7 +8,7 @@ export class HttpHelperService {
   constructor(private http: HttpClient) { }
   serverRes:any
   async getData(){
-    return await this.http.get('https://sihdjango.herokuapp.com/users/?format=json').toPromise();
+    return await this.http.get('http://localhost:3000/data').toPromise();
     
   }
 

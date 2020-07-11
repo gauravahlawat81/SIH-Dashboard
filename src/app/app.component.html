@@ -1,8 +1,9 @@
 <div class="ml-3">
     <h1>This is the dashboard</h1>
-    <button mat-raised-button color="primary" [disableRipple]="true" (click)="getData()"> Fetch The Result</button>
-    <div *ngIf="serverData!==null">
+    <button mat-raised-button color="primary" [disableRipple]="true" (click)="getData()">Fetch The Result</button>
+    <div class="mt-3" *ngIf="serverData!==null">
         <p>The data received is as follows</p>
         <pre>{{serverData.count}}</pre>
     </div>
 </div>
+<app-dashboard></app-dashboard>

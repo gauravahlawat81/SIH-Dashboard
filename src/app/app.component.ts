@@ -1,3 +1,4 @@
+import { FetchDataService } from './fetch-data.service';
 import { Component } from '@angular/core';
 import {HttpHelperService} from './http-helper.service'
 @Component({
@@ -8,10 +9,12 @@ import {HttpHelperService} from './http-helper.service'
 export class AppComponent {
   title = 'UI';
 
-  constructor(private httpService:HttpHelperService){}
+  constructor(private httpService:HttpHelperService,private fetchData:FetchDataService){}
   serverData:any=null;
   async getData(){
     this.serverData = await this.httpService.getData();
+    this.fetchData.changeServerData(this.serverData);
+    
 
   }
 }
