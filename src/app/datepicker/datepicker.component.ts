@@ -78,17 +78,26 @@ export class DatepickerComponent implements OnInit {
   
   var start_Date = new Date(this.startDateSelected);
   var end_Date = new Date(this.endDateSelected);
-  var schoolid = this.myControl.value.toString()
+  var schoolid=null;
+  if(this.myControl.value!==null){
+    schoolid = this.myControl.value.toString()
+  }
   console.log("Start Date" + start_Date);
   console.log("End Date" + end_Date);
   console.log("school id is "+schoolid)
   
-  let newFilteredData = this.serverData.filter(f => new Date(f.creationDate) > start_Date && new Date(f.creationDate) < end_Date)
-  let newFilteredData2 = this.serverData.filter(f =>  new String(f.school_id) == schoolid)
-  let newFilteredData3 = this.serverData.filter(f => {
-    if(start_Date!=null && end_Date!=null){new Date(f.creationDate) > start_Date && new Date(f.creationDate) < end_Date}
-    if(schoolid!=null){new String(f.school_id) == schoolid}
-  })
+  let newFilteredData = this.serverData;
+  if(this.startDateSelected!==null && this.endDateSelected!==null){
+    newFilteredData = this.serverData.filter(f => new Date(f.creationDate) > start_Date && new Date(f.creationDate) < end_Date)
+  }
+  if(schoolid!==null){
+    newFilteredData = newFilteredData.filter(f=> new String(f.school_id)== schoolid);
+  }
+  // let newFilteredData2 = this.serverData.filter(f =>  new String(f.school_id) == schoolid)
+  // let newFilteredData3 = this.serverData.filter(f => {
+  //   if(start_Date!=null && end_Date!=null){new Date(f.creationDate) > start_Date && new Date(f.creationDate) < end_Date}
+  //   if(schoolid!=null){new String(f.school_id) == schoolid}
+  // })
   this.serverData.forEach(res=>{
     console.log("Each Date is");
     console.log(new Date(res.creationDate));
@@ -96,7 +105,7 @@ export class DatepickerComponent implements OnInit {
     
   })
   console.log("After Applying filter");
-  this.fetchData.changeFilteredDate(newFilteredData2)
+  this.fetchData.changeFilteredDate(newFilteredData)
   
   }
 }
