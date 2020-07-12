@@ -75,7 +75,6 @@ export class DatepickerComponent implements OnInit {
   // 
   console.log("Before filter");
   console.log(this.serverData);
-  
   var start_Date = new Date(this.startDateSelected);
   var end_Date = new Date(this.endDateSelected);
   var schoolid=null;
@@ -87,7 +86,7 @@ export class DatepickerComponent implements OnInit {
   console.log("school id is "+schoolid)
   
   let newFilteredData = this.serverData;
-  if(this.startDateSelected!==null && this.endDateSelected!==null){
+  if(this.startDateSelected!=="" && this.endDateSelected!==""){
     newFilteredData = this.serverData.filter(f => new Date(f.creationDate) > start_Date && new Date(f.creationDate) < end_Date)
   }
   if(schoolid!==null){
@@ -107,5 +106,16 @@ export class DatepickerComponent implements OnInit {
   console.log("After Applying filter");
   this.fetchData.changeFilteredDate(newFilteredData)
   
+  }
+  clearFilter(){
+    this.startDateSelected="";
+    this.endDateSelected="";
+    this.myControl.setValue("");
+
+    var newFilteredData = this.serverData;
+    this.fetchData.changeFilteredDate(newFilteredData)
+
+
+
   }
 }
