@@ -1,8 +1,8 @@
 {
     "data":[
     {
-        "officer-id"        :212342,
-        "school-id"         :21223343,
+        "officer_id"        :212342,
+        "school_id"         :21223343,
         "average_score"     :9,
         "hygiene_score"     :7.9,
         "hygiene-review"    :"Can be improved",
@@ -19,8 +19,8 @@
     },
     {
 
-        "officer-id"        :212342,
-        "school-id"         :21223343,
+        "officer_id"        :212342,
+        "school_id"         :21223344,
         "average_score"     :5,
         "hygiene_score"     :7,
         "hygiene-review"    :"Can be improved",
@@ -37,8 +37,8 @@
     },
     {
 
-        "officer-id"        :212342,
-        "school-id"         :21223343,
+        "officer_id"        :212342,
+        "school_id"         :21223345,
         "average_score"     :1,
         "hygiene_score"     :1.1,
         "hygiene-review"    :"Can be improved",
