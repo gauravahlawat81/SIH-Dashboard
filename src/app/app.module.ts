@@ -15,6 +15,7 @@ import { DatepickerComponent } from './datepicker/datepicker.component';
 import { TeachersearchComponent } from './teachersearch/teachersearch.component';
 import { OfficersearchComponent } from './officersearch/officersearch.component';
 import { RecentReviewsComponent } from './recent-reviews/recent-reviews.component';
+import { FirstTableComponent } from './first-table/first-table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,11 @@ import { RecentReviewsComponent } from './recent-reviews/recent-reviews.componen
     DatepickerComponent,
     TeachersearchComponent,
     OfficersearchComponent,
+<<<<<<< HEAD
     RecentReviewsComponent
+=======
+    FirstTableComponent
+>>>>>>> d9d98ded7e738f5b8d267220efa09a3cf8f28a2b
   ],
   imports: [
     BrowserModule,
