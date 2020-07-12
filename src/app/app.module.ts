@@ -14,6 +14,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { TeachersearchComponent } from './teachersearch/teachersearch.component';
 import { OfficersearchComponent } from './officersearch/officersearch.component';
+import { RecentReviewsComponent } from './recent-reviews/recent-reviews.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { OfficersearchComponent } from './officersearch/officersearch.component'
     SearchComponent,
     DatepickerComponent,
     TeachersearchComponent,
-    OfficersearchComponent
+    OfficersearchComponent,
+    RecentReviewsComponent
   ],
   imports: [
     BrowserModule,

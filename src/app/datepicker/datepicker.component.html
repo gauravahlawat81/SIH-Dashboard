@@ -4,7 +4,7 @@
            placeholder="Search School"
            aria-label="Number"
            matInput
-           [formControl]="myControl"
+           [formControl]="schoolFilterForm"
            [matAutocomplete]="auto"
            >
     <mat-autocomplete #auto="matAutocomplete">
@@ -18,7 +18,7 @@
 <div class="row">
   <mat-form-field class="example-full-width col" appearance="fill">
       <mat-label>Start Date</mat-label>
-      <input matInput [matDatepicker]="picker" (dateChange)="startDate($event.value)">
+      <input matInput [matDatepicker]="picker"  [formControl]="startDateFilterForm" >
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker touchUi #picker></mat-datepicker>
       <mat-hint>Enter</mat-hint>
@@ -27,7 +27,7 @@
 
   <mat-form-field class="example-full-width ml-3 col" appearance="fill">
     <mat-label>End Date</mat-label>
-    <input matInput [matDatepicker]="picker2" (dateChange)="endDate($event.value)">
+    <input matInput [matDatepicker]="picker2" [formControl]="endDateFilterForm">
     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
     <mat-datepicker touchUi #picker2></mat-datepicker>
     <mat-hint>Enter</mat-hint>

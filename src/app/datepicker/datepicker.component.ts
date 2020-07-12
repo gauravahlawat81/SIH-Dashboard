@@ -17,7 +17,9 @@ export interface User {
 })
 export class DatepickerComponent implements OnInit {
   datepicker: any;
-  myControl = new FormControl();
+  schoolFilterForm = new FormControl();
+  startDateFilterForm = new FormControl();
+  endDateFilterForm = new FormControl();
   options: string[] = ['21223343','21223344','21223345'];
   filteredOptions: Observable<string[]>;
 
@@ -27,7 +29,7 @@ export class DatepickerComponent implements OnInit {
     this.fetchData.watchServerData.subscribe(res=>{
       this.serverData = res;
     })
-    this.filteredOptions = this.myControl.valueChanges
+    this.filteredOptions = this.schoolFilterForm.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
@@ -36,7 +38,6 @@ export class DatepickerComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
@@ -44,73 +45,50 @@ export class DatepickerComponent implements OnInit {
   endDateSelected:string="";
   schoolIDSelected=""
   startDate(val){
-    this.startDateSelected = val;    
+    this.startDateSelected = this.startDateFilterForm.value;    
   }
   endDate(val){
-    this.endDateSelected = val;    
+    this.endDateSelected = this.endDateFilterForm.value;    
   }
   schoolID(val){
-    console.log("school id is "+this.myControl.value)
-    this.schoolIDSelected = this.myControl.value
+    console.log("school id is "+this.schoolFilterForm.value)
+    this.schoolIDSelected = this.schoolFilterForm.value
   }
 
   applyFilter(){
-  //   this.serverData.forEach(res=>{
-  //     var startDateFilter = new Date(this.startDateSelected);
-  //     var endDateFilter = new Date(this.endDateSelected);
-  //     var currentDataFilter = new Date(res.creationDate)
-  //     if(currentDataFilter >= startDateFilter && currentDataFilter<= endDateFilter)
-  //     {
-  //       console.log("Filter passed");
-        
-  //       console.log(res);
-        
-  //     }
-  //     console.log("Didn't pass");
-  //     console.log(res);
-      
-      
-      
-  //   })
-  // 
   console.log("Before filter");
   console.log(this.serverData);
-  var start_Date = new Date(this.startDateSelected);
-  var end_Date = new Date(this.endDateSelected);
-  var schoolid=null;
-  if(this.myControl.value!==null){
-    schoolid = this.myControl.value.toString()
+  var start_Date = new Date(this.startDateFilterForm.value);
+  var end_Date = new Date(this.endDateFilterForm.value);
+  var schoolid="";
+  if(this.schoolFilterForm.value!==null){
+    schoolid = this.schoolFilterForm.value.toString()
   }
-  console.log("Start Date" + start_Date);
-  console.log("End Date" + end_Date);
+  console.log("Start Date " + this.startDateFilterForm.value);
+  console.log("End Date " +  this.endDateFilterForm.value);
   console.log("school id is "+schoolid)
   
   let newFilteredData = this.serverData;
-  if(this.startDateSelected!=="" && this.endDateSelected!==""){
+  if(this.startDateFilterForm.value!=="" && this.endDateFilterForm.value!==""){
     newFilteredData = this.serverData.filter(f => new Date(f.creationDate) > start_Date && new Date(f.creationDate) < end_Date)
   }
-  if(schoolid!==null){
+  if(schoolid!==""){
     newFilteredData = newFilteredData.filter(f=> new String(f.school_id)== schoolid);
   }
-  // let newFilteredData2 = this.serverData.filter(f =>  new String(f.school_id) == schoolid)
-  // let newFilteredData3 = this.serverData.filter(f => {
-  //   if(start_Date!=null && end_Date!=null){new Date(f.creationDate) > start_Date && new Date(f.creationDate) < end_Date}
-  //   if(schoolid!=null){new String(f.school_id) == schoolid}
-  // })
+
   this.serverData.forEach(res=>{
     console.log("Each Date is");
     console.log(new Date(res.creationDate));
     console.log(new String(res.school_id))
-    
   })
   console.log("After Applying filter");
   this.fetchData.changeFilteredDate(newFilteredData)
   
   }
   clearFilter(){
-    this.startDateSelected="";
-    this.endDateSelected="";
-    this.myControl.setValue("");
+    this.startDateFilterForm.setValue("")
+    this.endDateFilterForm.setValue("")
+    this.schoolFilterForm.setValue("")
 
     var newFilteredData = this.serverData;
     this.fetchData.changeFilteredDate(newFilteredData)
