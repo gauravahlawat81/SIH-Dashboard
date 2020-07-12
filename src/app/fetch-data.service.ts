@@ -10,7 +10,14 @@ export class FetchDataService {
   private serverData:BehaviorSubject<any> = new BehaviorSubject<any>(null);
   watchServerData = this.serverData.asObservable();
 
+  private filteredDate:BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  watchFilertedData = this.filteredDate.asObservable();
+
   changeServerData(val:any){
     this.serverData.next(val)
+  }
+
+  changeFilteredDate(val:any){
+    this.filteredDate.next(val);
   }
 }

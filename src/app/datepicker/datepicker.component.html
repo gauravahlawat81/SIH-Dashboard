@@ -1,8 +1,32 @@
+<<<<<<< HEAD
 <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Start date</mat-label>
     <input matInput [matDatepicker]="picker" >
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker touchUi #picker></mat-datepicker>
+=======
+
+
+<div class="row">
+  <mat-form-field class="example-full-width col" appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="picker" (dateChange)="startDate($event.value)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+      <mat-hint>Enter</mat-hint>
+    </mat-form-field>
+    
+
+  <mat-form-field class="example-full-width ml-3 col" appearance="fill">
+    <mat-label>End Date</mat-label>
+    <input matInput [matDatepicker]="picker2" (dateChange)="endDate($event.value)">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker2></mat-datepicker>
+>>>>>>> 6a93d8d83b15c170bd742b637def68ea808dd30e
     <mat-hint>Enter</mat-hint>
   </mat-form-field>
-  
+  <div class="col">
+    <button mat-raised-button (click)="applyFilter()">Apply Filter</button>
+  </div>
+
+</div>
