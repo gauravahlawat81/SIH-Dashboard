@@ -26,11 +26,8 @@ import { FirstTableComponent } from './first-table/first-table.component';
     DatepickerComponent,
     TeachersearchComponent,
     OfficersearchComponent,
-<<<<<<< HEAD
-    RecentReviewsComponent
-=======
+    RecentReviewsComponent,
     FirstTableComponent
->>>>>>> d9d98ded7e738f5b8d267220efa09a3cf8f28a2b
   ],
   imports: [
     BrowserModule,
