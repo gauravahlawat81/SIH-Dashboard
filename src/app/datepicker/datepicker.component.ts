@@ -1,10 +1,10 @@
 import { FetchDataService } from './../fetch-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { formatDate} from '@angular/common'
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { stringify } from '@angular/compiler/src/util';
+import { DbModel } from './../shared/models/db.model';
 
 export interface User {
   name: string;
@@ -20,7 +20,6 @@ export class DatepickerComponent implements OnInit {
   schoolFilterForm = new FormControl();
   startDateFilterForm = new FormControl();
   endDateFilterForm = new FormControl();
-  options: string[] = ['21223343','21223344','21223345'];
   filteredOptions: Observable<string[]>;
 
   constructor(private fetchData:FetchDataService) { }
@@ -32,14 +31,9 @@ export class DatepickerComponent implements OnInit {
     this.filteredOptions = this.schoolFilterForm.valueChanges
       .pipe(
         startWith(''),
-        map(value => this._filter(value))
       )
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
 
   startDateSelected:string="";
   endDateSelected:string="";
@@ -68,32 +62,37 @@ export class DatepickerComponent implements OnInit {
   console.log("End Date " +  this.endDateFilterForm.value);
   console.log("school id is "+schoolid)
   
-  let newFilteredData = this.serverData;
-  if(this.startDateFilterForm.value!=="" && this.endDateFilterForm.value!==""){
-    newFilteredData = this.serverData.filter(f => new Date(f.creationDate) > start_Date && new Date(f.creationDate) < end_Date)
+  let newFilteredData = this.serverData
+  let dateData 
+  if(this.startDateFilterForm.value!==null && this.endDateFilterForm.value!==null){
+    this.serverData.forEach(data => {
+      if(data.records.filter(f => new Date(f.creationDate)>= start_Date && new Date(f.creationDate) <= end_Date))
+      {
+        dateData=dateData+data
+      }
+    })
+    newFilteredData=dateData
   }
   if(schoolid!==""){
-    newFilteredData = newFilteredData.filter(f=> new String(f.school_id)== schoolid);
+    newFilteredData = this.serverData.filter(f => f.school_id == schoolid )  
   }
 
   this.serverData.forEach(res=>{
     console.log("Each Date is");
-    console.log(new Date(res.creationDate));
-    console.log(new String(res.school_id))
   })
   console.log("After Applying filter");
   this.fetchData.changeFilteredDate(newFilteredData)
-  
+  console.log(newFilteredData)
   }
   clearFilter(){
     this.startDateFilterForm.setValue("")
     this.endDateFilterForm.setValue("")
     this.schoolFilterForm.setValue("")
-
-    var newFilteredData = this.serverData;
+    console.log("Before clearing")
+    console.log(newFilteredData)
+    var newFilteredData = this.serverData
     this.fetchData.changeFilteredDate(newFilteredData)
-
-
-
+    console.log("After clearing")
+    console.log(newFilteredData)
   }
 }

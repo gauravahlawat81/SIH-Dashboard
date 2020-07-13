@@ -16,6 +16,7 @@ import { TeachersearchComponent } from './teachersearch/teachersearch.component'
 import { OfficersearchComponent } from './officersearch/officersearch.component';
 import { RecentReviewsComponent } from './recent-reviews/recent-reviews.component';
 import { FirstTableComponent } from './first-table/first-table.component';
+import { BestSchoolsComponent } from './best-schools/best-schools.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { FirstTableComponent } from './first-table/first-table.component';
     TeachersearchComponent,
     OfficersearchComponent,
     RecentReviewsComponent,
-    FirstTableComponent
+    FirstTableComponent,
+    BestSchoolsComponent
   ],
   imports: [
     BrowserModule,
