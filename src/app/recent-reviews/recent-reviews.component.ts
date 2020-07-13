@@ -18,7 +18,7 @@ export interface TableData{
 export class RecentReviewsComponent implements OnInit {
   displayedColumns: string[] = ['creation_date', 'review','school_name'];
   dataSource: MatTableDataSource<TableData>;
-  serverData:DbModel[];
+  dataReceived:DbModel[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -28,16 +28,29 @@ export class RecentReviewsComponent implements OnInit {
     console.log("Creating Recent reviews");
     
     this.fetchData.watchServerData.subscribe(res=>{
-      this.serverData=res;
+      this.dataReceived=res;
       console.log("Data received in first table");
-      console.log(this.serverData);
+      console.log(this.dataReceived);
       
-      if(this.serverData!=null && this.serverData.length!==0){
+      if(this.dataReceived!=null && this.dataReceived.length!==0){
         var newTableData:TableData[]=  this.createTable();
         this.dataSource = new MatTableDataSource(newTableData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
+    })
+    this.fetchData.watchFilertedData.subscribe(res=>{
+      this.dataReceived=res;
+      console.log("Data received in first table");
+      console.log(this.dataReceived);
+      
+      if(this.dataReceived!=null && this.dataReceived.length!==0){
+        var newTableData:TableData[]=  this.createTable();
+        this.dataSource = new MatTableDataSource(newTableData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+
     })
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -54,7 +67,7 @@ export class RecentReviewsComponent implements OnInit {
 
   createTable(){
     var createdTableData:TableData[]=[];
-    this.serverData.forEach(data => {
+    this.dataReceived.forEach(data => {
       var schoolName = data.school_name
       data.records.forEach( res => {
         var creationDate = new Date(res.creationDate)

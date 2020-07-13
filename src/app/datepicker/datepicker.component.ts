@@ -78,7 +78,7 @@ export class DatepickerComponent implements OnInit {
         dateData=dateData+data
       }
     })
-    dummyFilter.forEach(data=>{
+    newFilteredData.forEach(data=>{
       var previous_record = data.records;
       var newRecord:DbRecordModel[]=[];
 
@@ -106,18 +106,20 @@ export class DatepickerComponent implements OnInit {
     console.log("After filter data becomes");
     console.log(newFilteredData);
     
-    newFilteredData=dateData
+    // newFilteredData=dateData
   }
   if(schoolid!==""){
     newFilteredData = this.serverData.filter(f => f.school_id == schoolid )  
   }
 
-  this.serverData.forEach(res=>{
-    console.log("Each Date is");
-  })
+  // this.serverData.forEach(res=>{
+  //   console.log("Each Date is");
+  // })
   console.log("After Applying filter");
+  console.log(newFilteredData);
+  
   this.fetchData.changeFilteredDate(newFilteredData)
-  console.log(newFilteredData)
+  // console.log(newFilteredData)
   }
   clearFilter(){
     this.startDateFilterForm.setValue("")

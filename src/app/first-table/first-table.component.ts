@@ -18,6 +18,7 @@ export class FirstTableComponent implements OnInit {
   displayedColumns: string[] = ['serial_number', 'review'];
   dataSource: MatTableDataSource<TableData>;
   serverData:DbModel[];
+  dataReceived:DbModel[]=[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -36,6 +37,13 @@ export class FirstTableComponent implements OnInit {
         this.dataSource = new MatTableDataSource(newTableData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      }
+    })
+
+    this.fetchData.watchFilertedData.subscribe(res=>{
+      this.dataReceived = res;
+      if(this.dataReceived.length!==0){
+        var newTableData:TableData[]=this.createTable();
       }
     })
     this.dataSource.paginator = this.paginator;
