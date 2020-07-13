@@ -1,3 +1,4 @@
+import { DbRecordModel } from './../shared/models/db-record.model';
 import { FetchDataService } from './../fetch-data.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import {FormControl} from '@angular/forms';
@@ -62,15 +63,49 @@ export class DatepickerComponent implements OnInit {
   console.log("End Date " +  this.endDateFilterForm.value);
   console.log("school id is "+schoolid)
   
-  let newFilteredData = this.serverData
+  let newFilteredData:DbModel[] = this.serverData;
+  let dummyFilter:DbModel[] = this.serverData;
   let dateData 
   if(this.startDateFilterForm.value!==null && this.endDateFilterForm.value!==null){
+    console.log("Applying date filter");
+    
     this.serverData.forEach(data => {
       if(data.records.filter(f => new Date(f.creationDate)>= start_Date && new Date(f.creationDate) <= end_Date))
       {
+        console.log("The filter has been passed for");
+        
+        
         dateData=dateData+data
       }
     })
+    dummyFilter.forEach(data=>{
+      var previous_record = data.records;
+      var newRecord:DbRecordModel[]=[];
+
+      data.records.forEach( f=>{
+        console.log("Processing record");
+        console.log(data.records);
+        
+        var testingDate:Date= new Date(f.creationDate);
+        console.log("Currently processing date " + testingDate);
+        
+        if(testingDate>=start_Date && testingDate <= end_Date){
+          newRecord.push(f);
+        }
+
+      })
+      // yha par agar hum ye karde
+      // data.records = newRecord
+      // to chal jayega
+      data.records = newRecord;
+      
+    })
+    console.log("Records that could pass the date filter");
+    // console.log(newRecord)
+
+    console.log("After filter data becomes");
+    console.log(newFilteredData);
+    
     newFilteredData=dateData
   }
   if(schoolid!==""){

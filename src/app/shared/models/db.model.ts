@@ -4,5 +4,5 @@ export class DbModel{
     school_name:string;
     school_gps_range:number;
     school_address:string;
-    records : [DbRecordModel];
+    records : DbRecordModel[];
 }
