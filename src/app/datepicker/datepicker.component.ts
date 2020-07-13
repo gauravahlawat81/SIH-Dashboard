@@ -68,16 +68,6 @@ export class DatepickerComponent implements OnInit {
   let dateData 
   if(this.startDateFilterForm.value!==null && this.endDateFilterForm.value!==null){
     console.log("Applying date filter");
-    
-    this.serverData.forEach(data => {
-      if(data.records.filter(f => new Date(f.creationDate)>= start_Date && new Date(f.creationDate) <= end_Date))
-      {
-        console.log("The filter has been passed for");
-        
-        
-        dateData=dateData+data
-      }
-    })
     newFilteredData.forEach(data=>{
       var previous_record = data.records;
       var newRecord:DbRecordModel[]=[];
@@ -128,7 +118,7 @@ export class DatepickerComponent implements OnInit {
     console.log("Before clearing")
     console.log(newFilteredData)
     var newFilteredData = this.serverData
-    this.fetchData.changeFilteredDate(newFilteredData)
+    this.fetchData.changeFilteredDate(this.serverData);
     console.log("After clearing")
     console.log(newFilteredData)
   }
