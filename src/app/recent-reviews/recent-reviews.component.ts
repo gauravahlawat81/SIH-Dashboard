@@ -1,36 +1,69 @@
-import { Component, OnInit } from '@angular/core';
+import { DbModel } from './../shared/models/db.model';
+import { FetchDataService } from './../fetch-data.service';
+import { Component, OnInit,ViewChild } from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
+export interface TableData{
+  creation_date:Date
+  review:string
+  school_name:string
+}
 @Component({
   selector: 'app-recent-reviews',
   templateUrl: './recent-reviews.component.html',
   styleUrls: ['./recent-reviews.component.css']
 })
 export class RecentReviewsComponent implements OnInit {
+  displayedColumns: string[] = ['creation_date', 'review','school_name'];
+  dataSource: MatTableDataSource<TableData>;
+  serverData:DbModel[];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor() { }
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-  ngOnInit(): void {
+  constructor(private fetchData:FetchDataService) { }
+  
+  ngOnInit() {
+    console.log("Creating Recent reviews");
+    
+    this.fetchData.watchServerData.subscribe(res=>{
+      this.serverData=res;
+      console.log("Data received in first table");
+      console.log(this.serverData);
+      
+      if(this.serverData!=null && this.serverData.length!==0){
+        var newTableData:TableData[]=  this.createTable();
+        this.dataSource = new MatTableDataSource(newTableData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    })
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  createTable(){
+    var createdTableData:TableData[]=[];
+    this.serverData.forEach(data => {
+      var schoolName = data.school_name
+      data.records.forEach( res => {
+        var creationDate = new Date(res.creationDate)
+        var review = res.overall_review 
+        createdTableData.push({creation_date:creationDate,review:review,school_name:schoolName})
+      })
+    })
+    return createdTableData;
   }
 
 }
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];

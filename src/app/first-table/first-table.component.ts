@@ -7,7 +7,6 @@ import {MatTableDataSource} from '@angular/material/table';
 export interface TableData{
   serial_number:number
   review:string;
-
 }
 
 @Component({

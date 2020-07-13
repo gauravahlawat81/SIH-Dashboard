@@ -7,54 +7,9 @@
 </div>
 
 <app-dashboard></app-dashboard>
-<br/>
-<div class="mt-3 mb-3 ml-3 mr-3" *ngIf="serverData!==null">
-    <h2>Mat Table</h2>
-    <app-first-table></app-first-table>
-</div>
+<hr/>
 
-<div class="col-lg-6 col-md-12">
-    <div class="card">
-        <div class="card-header card-header-warning">
-            <h4 class="card-title">Employees Stats</h4>
-            <p class="card-category">New employees on 15th September, 2016</p>
-        </div>
-        <div class="card-body table-responsive">
-            <table class="table table-hover">
-                <thead class="text-warning">
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Salary</th>
-                    <th>Country</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
-                        <td>Niger</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>$23,789</td>
-                        <td>Curaçao</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>$56,142</td>
-                        <td>Netherlands</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>$38,735</td>
-                        <td>Korea, South</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div class="mt-3 mb-3 ml-3 mr-3" *ngIf="serverData!==null">
+    <h2>Recent Reviews</h2>
+    <app-recent-reviews></app-recent-reviews>
 </div>
-<br/>
