@@ -29,7 +29,7 @@ export class RecentReviewsComponent implements OnInit {
     
     this.fetchData.watchServerData.subscribe(res=>{
       this.dataReceived=res;
-      console.log("Data received in first table");
+      console.log("Data received in review table");
       console.log(this.dataReceived);
       
       if(this.dataReceived!=null && this.dataReceived.length!==0){
@@ -41,7 +41,7 @@ export class RecentReviewsComponent implements OnInit {
     })
     this.fetchData.watchFilertedData.subscribe(res=>{
       this.dataReceived=res;
-      console.log("Data received in first table");
+      console.log("Data received in review  table through filter");
       console.log(this.dataReceived);
       
       if(this.dataReceived!=null && this.dataReceived.length!==0){

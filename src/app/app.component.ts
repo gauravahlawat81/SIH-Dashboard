@@ -14,8 +14,8 @@ export class AppComponent implements OnInit{
   async ngOnInit(){
     var dataR = await this.getData();
     console.log("Data received ");
-    console.log(dataR);
-    this.fetchData.changeServerData(dataR);
+    console.log(dataR.data);
+    this.fetchData.changeServerData(dataR.data);
     
     
   }
