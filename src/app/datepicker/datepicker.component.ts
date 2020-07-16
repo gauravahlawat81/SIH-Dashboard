@@ -98,9 +98,10 @@ export class DatepickerComponent implements OnInit {
     
     // newFilteredData=dateData
   }
-  // if(schoolid!==""){
-  //   newFilteredData = this.serverData.filter(f => f. == schoolid )  
-  // }
+  if(schoolid!==""){
+    var schoolidNum = Number(schoolid);
+    newFilteredData = this.serverData.filter(f => f.SchoolID == schoolidNum )  
+  }
 
   // this.serverData.forEach(res=>{
   //   console.log("Each Date is");

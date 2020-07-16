@@ -6,5 +6,6 @@ export class DbModel{
         long:number;
     }
     SchoolName:string;
+    SchoolID:number;
     Records : DbRecordModel[];
 }
