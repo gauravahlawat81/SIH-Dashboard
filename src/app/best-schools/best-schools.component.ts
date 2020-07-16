@@ -55,17 +55,19 @@ export class BestSchoolsComponent implements OnInit {
 
   createTable(){
     var createdTableData:TableData[]=[];
-    // this.serverData.forEach(data => {
-    //   var schoolName = data.school_name
-    //   var school_score = 0
-    //   var creationDate
-    //   data.records.forEach( res => {
-    //     school_score =school_score + (res.oanswer1+res.oanswer2+res.sanalysis1+res.sanalysis2 )/ 4
-    //     creationDate= new Date(res.creationDate)
-    //   })
-    //   school_score=school_score/(data.records.length)
-    //   createdTableData.push({creation_date:creationDate,school_name:schoolName,school_score:school_score})
-    // })
+    this.serverData.forEach(data => {
+      var schoolName = data.SchoolName
+      var school_score = 0
+      var creationDate
+      data.Records.forEach( res => {
+        res.questions.forEach(ques =>{
+          school_score = school_score + ques.analysis;
+        })
+        creationDate= new Date(res.CreationDate)
+      })
+      school_score=school_score/(data.Records.length)
+      createdTableData.push({creation_date:creationDate,school_name:schoolName,school_score:school_score})
+    })
     return createdTableData;
   }
 }

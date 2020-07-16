@@ -19,7 +19,7 @@ export class AppComponent {
       this.items=res;
       console.log(this.items);
       var school_address = 'School Address'
-      console.log(this.items[0].SchoolAddress);
+      console.log(this.items[0].SchoolName);
       
       this.fetchData.changeServerData(this.items);
   })

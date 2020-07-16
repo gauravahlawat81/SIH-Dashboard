@@ -67,12 +67,13 @@ export class RecentReviewsComponent implements OnInit {
 
   createTable(){
     var createdTableData:TableData[]=[];
+    console.log("Data received in create Table function");
+    console.log(this.dataReceived);
+    
     this.dataReceived.forEach(data => {
       var schoolName = data.SchoolName;
       console.log("School name is ");
       console.log(schoolName);
-      
-      
       data.Records.forEach( res => {
         var creationDate = new Date(res.CreationDate)
         var review = res.OverallReview
