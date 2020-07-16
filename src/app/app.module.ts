@@ -17,6 +17,11 @@ import { OfficersearchComponent } from './officersearch/officersearch.component'
 import { RecentReviewsComponent } from './recent-reviews/recent-reviews.component';
 import { FirstTableComponent } from './first-table/first-table.component';
 import { BestSchoolsComponent } from './best-schools/best-schools.component';
+import { TitleHeaderComponent } from './title-header/title-header.component';
+import { AngularFireModule} from '@angular/fire';
+import { AngularFireDatabaseModule} from '@angular/fire/database';
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +34,8 @@ import { BestSchoolsComponent } from './best-schools/best-schools.component';
     OfficersearchComponent,
     RecentReviewsComponent,
     FirstTableComponent,
-    BestSchoolsComponent
+    BestSchoolsComponent,
+    TitleHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,9 @@ import { BestSchoolsComponent } from './best-schools/best-schools.component';
     HttpClientModule,
     AppMaterialModule,
     RouterModule,
-    ChartsModule
+    ChartsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
