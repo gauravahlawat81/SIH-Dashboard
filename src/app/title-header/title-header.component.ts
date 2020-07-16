@@ -23,27 +23,27 @@ export class TitleHeaderComponent implements OnInit {
   constructor(private fetchData:FetchDataService) { }
 
   ngOnInit(): void {
-    this.fetchData.watchServerData.subscribe(res=>{
-      this.dataReceived=res;
-      console.log("Data received in first table");
-      console.log(this.dataReceived);
+  //   this.fetchData.watchServerData.subscribe(res=>{
+  //     this.dataReceived=res;
+  //     console.log("Data received in first table");
+  //     console.log(this.dataReceived);
       
-      if(this.dataReceived!=null && this.dataReceived.length!==0){
-        this.SchoolName = this.dataReceived[0].school_name
-        this.SchoolID = this.dataReceived[0].school_id
-        this.SchoolAddress = this.dataReceived[0].school_address
-      }
-    })
-    this.fetchData.watchFilertedData.subscribe(res=>{
-      this.dataReceived=res;
-      console.log("Data received in first table");
-      console.log(this.dataReceived);
+  //     if(this.dataReceived!=null && this.dataReceived.length!==0){
+  //       this.SchoolName = this.dataReceived[0].school_name
+  //       this.SchoolID = this.dataReceived[0].school_id
+  //       this.SchoolAddress = this.dataReceived[0].school_address
+  //     }
+  //   })
+  //   this.fetchData.watchFilertedData.subscribe(res=>{
+  //     this.dataReceived=res;
+  //     console.log("Data received in first table");
+  //     console.log(this.dataReceived);
       
-      if(this.dataReceived!=null && this.dataReceived.length!==0){
+  //     if(this.dataReceived!=null && this.dataReceived.length!==0){
        
-      }
+  //     }
 
-    })
+  //   })
   }
 
 }

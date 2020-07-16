@@ -14,6 +14,7 @@ export class FetchDataService {
   watchFilertedData = this.filteredDate.asObservable();
 
   changeServerData(val:any){
+    
     this.serverData.next(val)
   }
 

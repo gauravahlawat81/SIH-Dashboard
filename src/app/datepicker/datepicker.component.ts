@@ -24,7 +24,7 @@ export class DatepickerComponent implements OnInit {
   filteredOptions: Observable<string[]>;
 
   constructor(private fetchData:FetchDataService) { }
-  serverData:any=null;
+  serverData:DbModel[]=[];
   ngOnInit(): void {
     this.fetchData.watchServerData.subscribe(res=>{
       this.serverData = res;
@@ -69,14 +69,14 @@ export class DatepickerComponent implements OnInit {
   if(this.startDateFilterForm.value!==null && this.endDateFilterForm.value!==null){
     console.log("Applying date filter");
     newFilteredData.forEach(data=>{
-      var previous_record = data.records;
+      var previous_record = data.Records;
       var newRecord:DbRecordModel[]=[];
 
-      data.records.forEach( f=>{
+      data.Records.forEach( f=>{
         console.log("Processing record");
-        console.log(data.records);
+        console.log(data.Records);
         
-        var testingDate:Date= new Date(f.creationDate);
+        var testingDate:Date= new Date(f.CreationDate);
         console.log("Currently processing date " + testingDate);
         
         if(testingDate>=start_Date && testingDate <= end_Date){
@@ -87,7 +87,7 @@ export class DatepickerComponent implements OnInit {
       // yha par agar hum ye karde
       // data.records = newRecord
       // to chal jayega
-      data.records = newRecord;
+      data.Records = newRecord;
       
     })
     console.log("Records that could pass the date filter");
@@ -98,9 +98,9 @@ export class DatepickerComponent implements OnInit {
     
     // newFilteredData=dateData
   }
-  if(schoolid!==""){
-    newFilteredData = this.serverData.filter(f => f.school_id == schoolid )  
-  }
+  // if(schoolid!==""){
+  //   newFilteredData = this.serverData.filter(f => f. == schoolid )  
+  // }
 
   // this.serverData.forEach(res=>{
   //   console.log("Each Date is");

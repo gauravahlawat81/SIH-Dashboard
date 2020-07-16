@@ -62,14 +62,14 @@ export class FirstTableComponent implements OnInit {
   createTable(){
 
     var singleInstance:DbModel =this.serverData[0];
-    var serial_number = 1;
+    // var serial_number = 1;
     var createdTableData:TableData[]=[];
-    singleInstance.records.forEach(res=>{
-      var field1 = serial_number;
-      var field2 = res.overall_review;
-      serial_number = serial_number +1;
-      createdTableData.push({serial_number:field1,review:field2});
-    })
+    // singleInstance.records.forEach(res=>{
+    //   var field1 = serial_number;
+    //   var field2 = res.overall_review;
+    //   serial_number = serial_number +1;
+    //   createdTableData.push({serial_number:field1,review:field2});
+    // })
     return createdTableData;
   }
 }
