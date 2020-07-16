@@ -22,10 +22,17 @@ export class AppComponent {//implements OnInit{
   }
   /*serverData:any=null
   async ngOnInit(){
+<<<<<<< HEAD
     var dataR = await this.getData()
     console.log("Data received ")
     console.log(dataR)
     this.fetchData.changeServerData(dataR)
+=======
+    var dataR = await this.getData();
+    console.log("Data received ");
+    console.log(dataR.data);
+    this.fetchData.changeServerData(dataR.data);
+>>>>>>> 8f2d670859f5a6b3b212de4b117ed083a222cbda
     
     
   }

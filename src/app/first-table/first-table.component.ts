@@ -25,12 +25,12 @@ export class FirstTableComponent implements OnInit {
   constructor(private fetchData:FetchDataService) { }
 
   ngOnInit() {
-    console.log("Table in first table");
+    // console.log("Table in first table");
     
     this.fetchData.watchServerData.subscribe(res=>{
       this.serverData=res;
-      console.log("Data received in first table");
-      console.log(this.serverData);
+      // console.log("Data received in first table");
+      // console.log(this.serverData);
       
       if(this.serverData!=null && this.serverData.length!==0){
         var newTableData:TableData[]=  this.createTable();
