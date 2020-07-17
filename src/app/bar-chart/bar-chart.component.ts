@@ -5,6 +5,7 @@ import { DbModel } from './../shared/models/db.model'
 import { FetchDataService } from './../fetch-data.service'
 import { Component, OnInit,ViewChild } from '@angular/core'
 import {MatTableDataSource} from '@angular/material/table'
+import {cloneDeep} from 'lodash';
 
 export interface TableData{
   oanswer1:Date
@@ -32,7 +33,7 @@ export class BarChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchData.watchServerData.subscribe(res=>{
-      this.dataReceived=res;
+      this.dataReceived=cloneDeep(res);
       console.log("Data received in first table");
       console.log(this.dataReceived);
       
@@ -41,7 +42,7 @@ export class BarChartComponent implements OnInit {
       }
     })
     this.fetchData.watchFilertedData.subscribe(res=>{
-      this.dataReceived=res;
+      this.dataReceived=cloneDeep(res);
       console.log("Data received in first table");
       console.log(this.dataReceived);
       
