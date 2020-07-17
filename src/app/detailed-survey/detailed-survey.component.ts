@@ -8,26 +8,26 @@ import {MatTableDataSource} from '@angular/material/table';
 
 export interface TableData{
   creation_date:Date
-  review:string
-  school_name:string
+  question:string
+  answer:string
+  analysis:number
 }
+
 @Component({
-  selector: 'app-recent-reviews',
-  templateUrl: './recent-reviews.component.html',
-  styleUrls: ['./recent-reviews.component.css']
+  selector: 'app-detailed-survey',
+  templateUrl: './detailed-survey.component.html',
+  styleUrls: ['./detailed-survey.component.css']
 })
-export class RecentReviewsComponent implements OnInit {
-  displayedColumns: string[] = ['creation_date', 'review','school_name'];
+export class DetailedSurveyComponent implements OnInit {
+  displayedColumns: string[] = ['creation_date', 'question','answer','analysis'];
   dataSource: MatTableDataSource<TableData>;
-  dataReceived:DbModel[];
+  dataReceived:DbModel[]
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private fetchData:FetchDataService) { }
-  
-  ngOnInit() {
-    console.log("Creating Recent reviews");
-    
+
+  ngOnInit(): void {
     this.fetchData.watchServerData.subscribe(res=>{
       this.dataReceived=cloneDeep(res);
       console.log("Data received in review table through server data");
@@ -36,8 +36,6 @@ export class RecentReviewsComponent implements OnInit {
       if(this.dataReceived!=null && this.dataReceived.length!==0){
         var newTableData:TableData[]=  this.createTable();
         this.dataSource = new MatTableDataSource(newTableData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
       }
     })
     this.fetchData.watchFilertedData.subscribe(res=>{
@@ -48,8 +46,6 @@ export class RecentReviewsComponent implements OnInit {
       if(this.dataReceived!=null && this.dataReceived.length!==0){
         var newTableData:TableData[]=  this.createTable();
         this.dataSource = new MatTableDataSource(newTableData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
       }
 
     })
@@ -72,17 +68,14 @@ export class RecentReviewsComponent implements OnInit {
     console.log(this.dataReceived);
     
     this.dataReceived.forEach(data => {
-      var schoolName = data.SchoolName;
-      // console.log("School name is ");
-      // console.log(schoolName);
       data.Records.forEach( res => {
-        var creationDate = new Date(res.CreationDate)
-        var review = res.OverallReview
-        createdTableData.push({creation_date:creationDate,review:review,school_name:schoolName})
+        var dt = new Date(res.CreationDate)
+        res.questions.forEach( ques => {
+          createdTableData.push({creation_date:dt,question:ques.question,answer:ques.answer,analysis:ques.analysis})
+        } )
       })
     })
     return createdTableData;
   }
-
 
 }

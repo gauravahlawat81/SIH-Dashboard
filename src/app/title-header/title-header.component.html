@@ -1,5 +1,14 @@
-<div>
-<h2><b>School Name</b> : {{SchoolName}}</h2>
-<h3><b>School ID</b> : {{SchoolID}}</h3>
-<h3><b>Address</b> : {{SchoolAddress}}</h3>
+<div class="d-flex justify-content-around" *ngIf="this.dataReceived.length===1">
+    <div>
+        School Logo
+    </div>
+    <div>
+        <h2><b>School Name</b> : {{SchoolName}}</h2><hr/>
+        <h3><b>School ID</b> : {{SchoolID}}</h3><hr/>
+        <h3><b>Address</b> : {{SchoolAddress}}</h3><hr/>
+        <h3><b>Most Recent Review</b> : {{OverallReview}} </h3>
+    </div>
+    <div>
+        School Photo
+    </div>
 </div>
