@@ -2,12 +2,10 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { AppMaterialModule } from './app-material/app-material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import {environment} from '../environments/environment';
-
-
+import { NgxGaugeModule } from 'ngx-gauge';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,7 +23,8 @@ import { FirstTableComponent } from './first-table/first-table.component';
 import { BestSchoolsComponent } from './best-schools/best-schools.component';
 import { TitleHeaderComponent } from './title-header/title-header.component';
 import { from } from 'rxjs';
-
+import { CirclechartComponent } from './circlechart/circlechart.component';
+import { GaugeChartModule } from 'angular-gauge-chart'
 
 
 @NgModule({
@@ -41,9 +40,11 @@ import { from } from 'rxjs';
     RecentReviewsComponent,
     FirstTableComponent,
     BestSchoolsComponent,
-    TitleHeaderComponent
+    TitleHeaderComponent,
+    CirclechartComponent
   ],
   imports: [
+    GaugeChartModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
@@ -55,7 +56,8 @@ import { from } from 'rxjs';
     RouterModule,
     ChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    NgxGaugeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -23,11 +23,13 @@
     "@angular/platform-browser": "~10.0.2",
     "@angular/platform-browser-dynamic": "~10.0.2",
     "@angular/router": "~10.0.2",
+    "angular-gauge-chart": "^0.7.2",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
     "firebase": "^7.16.0",
     "jquery": "^3.5.1",
     "ng2-charts": "^2.3.2",
+    "ngx-gauge": "^1.1.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
