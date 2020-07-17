@@ -14,11 +14,18 @@ export class FetchDataService {
   watchFilertedData = this.filteredDate.asObservable();
 
   changeServerData(val:any){
+    console.log("ServerData has been changed and new value is ");
+    console.log(val);
+    
     
     this.serverData.next(val)
   }
 
   changeFilteredDate(val:any){
     this.filteredDate.next(val);
+  }
+
+  getServerData(){
+    return this.serverData.value;
   }
 }

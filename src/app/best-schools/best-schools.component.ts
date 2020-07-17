@@ -4,6 +4,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {cloneDeep} from 'lodash';
 
 export interface TableData{
   school_name:string
@@ -26,11 +27,11 @@ export class BestSchoolsComponent implements OnInit {
   constructor(private fetchData:FetchDataService) { }
 
   ngOnInit() {
-    console.log("Creating Recent reviews");
+    console.log("Creating best school table");
     
     this.fetchData.watchServerData.subscribe(res=>{
-      this.serverData=res;
-      console.log("Data received in first table");
+      this.serverData=cloneDeep(res);
+      console.log("Data received in best school table");
       console.log(this.serverData);
       
       if(this.serverData!=null && this.serverData.length!==0){
@@ -42,6 +43,19 @@ export class BestSchoolsComponent implements OnInit {
     })
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.fetchData.watchFilertedData.subscribe(res=>{
+      console.log("Best school through filter");
+      this.serverData=cloneDeep(res);
+      console.log(this.serverData);
+      
+      if(this.serverData!=null && this.serverData.length!==0){
+        var newTableData:TableData[]=  this.createTable();
+        this.dataSource = new MatTableDataSource(newTableData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    })
   }
 
   applyFilter(event: Event) {

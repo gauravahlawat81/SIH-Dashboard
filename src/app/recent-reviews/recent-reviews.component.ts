@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import { DbModel } from './../shared/models/db.model';
 import { FetchDataService } from './../fetch-data.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
@@ -28,8 +29,8 @@ export class RecentReviewsComponent implements OnInit {
     console.log("Creating Recent reviews");
     
     this.fetchData.watchServerData.subscribe(res=>{
-      this.dataReceived=res;
-      console.log("Data received in review table");
+      this.dataReceived=cloneDeep(res);
+      console.log("Data received in review table through server data");
       console.log(this.dataReceived);
       
       if(this.dataReceived!=null && this.dataReceived.length!==0){
@@ -40,7 +41,7 @@ export class RecentReviewsComponent implements OnInit {
       }
     })
     this.fetchData.watchFilertedData.subscribe(res=>{
-      this.dataReceived=res;
+      this.dataReceived=cloneDeep(res);
       console.log("Data received in review  table through filter");
       console.log(this.dataReceived);
       
@@ -72,8 +73,8 @@ export class RecentReviewsComponent implements OnInit {
     
     this.dataReceived.forEach(data => {
       var schoolName = data.SchoolName;
-      console.log("School name is ");
-      console.log(schoolName);
+      // console.log("School name is ");
+      // console.log(schoolName);
       data.Records.forEach( res => {
         var creationDate = new Date(res.CreationDate)
         var review = res.OverallReview

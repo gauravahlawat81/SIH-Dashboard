@@ -6,6 +6,7 @@ import { formatDate} from '@angular/common'
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { DbModel } from './../shared/models/db.model';
+import {cloneDeep} from 'lodash';
 
 export interface User {
   name: string;
@@ -27,7 +28,7 @@ export class DatepickerComponent implements OnInit {
   serverData:DbModel[]=[];
   ngOnInit(): void {
     this.fetchData.watchServerData.subscribe(res=>{
-      this.serverData = res;
+      this.serverData = cloneDeep(res);
     })
     this.filteredOptions = this.schoolFilterForm.valueChanges
       .pipe(
@@ -63,7 +64,7 @@ export class DatepickerComponent implements OnInit {
   console.log("End Date " +  this.endDateFilterForm.value);
   console.log("school id is "+schoolid)
   
-  let newFilteredData:DbModel[] = this.serverData;
+  let newFilteredData:DbModel[] = cloneDeep(this.serverData);
   let dummyFilter:DbModel[] = this.serverData;
   let dateData 
   if(this.startDateFilterForm.value!==null && this.endDateFilterForm.value!==null){
@@ -71,28 +72,28 @@ export class DatepickerComponent implements OnInit {
     newFilteredData.forEach(data=>{
       var previous_record = data.Records;
       var newRecord:DbRecordModel[]=[];
-
-      data.Records.forEach( f=>{
-        console.log("Processing record");
-        console.log(data.Records);
+      // iss line se hii filter ho jaa rha, utna bada code likhne ka tension nahi
+      data.Records = data.Records.filter(f=>  new Date(f.CreationDate)>=start_Date && new Date(f.CreationDate)<=end_Date);
+      // data.Records.forEach( f=>{
+      //   // console.log("Processing record");
+      //   // console.log(data.Records);
         
-        var testingDate:Date= new Date(f.CreationDate);
-        console.log("Currently processing date " + testingDate);
+      //   var testingDate:Date= new Date(f.CreationDate);
+      //   // console.log("Currently processing date " + testingDate);
         
-        if(testingDate>=start_Date && testingDate <= end_Date){
-          newRecord.push(f);
-        }
+      //   if(testingDate>=start_Date && testingDate <= end_Date){
+      //     newRecord.push(f);
+      //   }
 
-      })
-      // yha par agar hum ye karde
-      // data.records = newRecord
-      // to chal jayega
-      data.Records = newRecord;
+      // })
+      // // yha par agar hum ye karde
+      // // data.records = newRecord
+      // // to chal jayega
+      // data.Records = newRecord;
       
     })
-    console.log("Records that could pass the date filter");
+    // console.log("Records that could pass the date filter");
     // console.log(newRecord)
-
     console.log("After filter data becomes");
     console.log(newFilteredData);
     
@@ -118,9 +119,21 @@ export class DatepickerComponent implements OnInit {
     this.schoolFilterForm.setValue("")
     console.log("Before clearing")
     console.log(newFilteredData)
+    console.log("After clearing new Filtered data is")
+    console.log(newFilteredData)
+    console.log("and server data is which is fetched from service ");
+
+    console.log(this.fetchData.getServerData());
+    console.log("Server data stored in local variable");
+    console.log(this.serverData);
+    
+    if(this.fetchData.getServerData()== this.serverData){
+      console.log("The two are exactly same");
+      
+    }
+    
     var newFilteredData = this.serverData
     this.fetchData.changeFilteredDate(this.serverData);
-    console.log("After clearing")
-    console.log(newFilteredData)
+    
   }
 }

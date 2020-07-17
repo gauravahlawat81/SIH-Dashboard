@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import { DbModel } from './../shared/models/db.model';
 import { FetchDataService } from './../fetch-data.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
@@ -28,7 +29,7 @@ export class FirstTableComponent implements OnInit {
     // console.log("Table in first table");
     
     this.fetchData.watchServerData.subscribe(res=>{
-      this.serverData=res;
+      this.serverData=cloneDeep(res);
       // console.log("Data received in first table");
       // console.log(this.serverData);
       
@@ -41,7 +42,7 @@ export class FirstTableComponent implements OnInit {
     })
 
     this.fetchData.watchFilertedData.subscribe(res=>{
-      this.dataReceived = res;
+      this.dataReceived = cloneDeep(res);
       if(this.dataReceived.length!==0){
         var newTableData:TableData[]=this.createTable();
       }
