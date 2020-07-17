@@ -23,33 +23,47 @@ export class BestSchoolsComponent implements OnInit {
   serverData:DbModel[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  dataReceived:DbModel[]
 
   constructor(private fetchData:FetchDataService) { }
 
   ngOnInit() {
     console.log("Creating best school table");
-    
+
     this.fetchData.watchServerData.subscribe(res=>{
-      this.serverData=cloneDeep(res);
+      this.dataReceived=cloneDeep(res);
       console.log("Data received in best school table");
-      console.log(this.serverData);
+      console.log(this.dataReceived);
       
-      if(this.serverData!=null && this.serverData.length!==0){
+      if(this.dataReceived!=null && this.dataReceived.length!==0){
         var newTableData:TableData[]=  this.createTable();
         this.dataSource = new MatTableDataSource(newTableData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
     })
+    this.fetchData.watchFilertedData.subscribe(res=>{
+      this.dataReceived=cloneDeep(res);
+      console.log("Data received in review  table through filter");
+      console.log(this.dataReceived);
+      
+      if(this.dataReceived!=null && this.dataReceived.length!==0){
+        var newTableData:TableData[]=  this.createTable();
+        this.dataSource = new MatTableDataSource(newTableData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+
+    })
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
     this.fetchData.watchFilertedData.subscribe(res=>{
       console.log("Best school through filter");
-      this.serverData=cloneDeep(res);
-      console.log(this.serverData);
+      this.dataReceived=cloneDeep(res);
+      console.log(this.dataReceived);
       
-      if(this.serverData!=null && this.serverData.length!==0){
+      if(this.dataReceived!=null && this.dataReceived.length!==0){
         var newTableData:TableData[]=  this.createTable();
         this.dataSource = new MatTableDataSource(newTableData);
         this.dataSource.paginator = this.paginator;
@@ -69,7 +83,7 @@ export class BestSchoolsComponent implements OnInit {
 
   createTable(){
     var createdTableData:TableData[]=[];
-    this.serverData.forEach(data => {
+    this.dataReceived.forEach(data => {
       var schoolName = data.SchoolName
       var school_score = 0
       var creationDate
