@@ -22,8 +22,12 @@ export class DetailedSurveyComponent implements OnInit {
   displayedColumns: string[] = ['creation_date', 'question','answer','analysis'];
   dataSource: MatTableDataSource<TableData>;
   dataReceived:DbModel[]
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator,{static:false}) set content1(paginator:MatPaginator){
+    this.dataSource.paginator=paginator;
+  }
+  @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
 
   constructor(private fetchData:FetchDataService) { }
 
@@ -49,8 +53,8 @@ export class DetailedSurveyComponent implements OnInit {
       }
 
     })
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {

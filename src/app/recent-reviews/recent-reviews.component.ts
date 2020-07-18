@@ -20,8 +20,12 @@ export class RecentReviewsComponent implements OnInit {
   displayedColumns: string[] = ['creation_date', 'review','school_name'];
   dataSource: MatTableDataSource<TableData>;
   dataReceived:DbModel[];
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator,{static:false}) set content1(paginator:MatPaginator){
+    this.dataSource.paginator=paginator;
+  }
+  @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
 
   constructor(private fetchData:FetchDataService) { }
   
@@ -36,8 +40,8 @@ export class RecentReviewsComponent implements OnInit {
       if(this.dataReceived!=null && this.dataReceived.length!==0){
         var newTableData:TableData[]=  this.createTable();
         this.dataSource = new MatTableDataSource(newTableData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
       }
     })
     this.fetchData.watchFilertedData.subscribe(res=>{
@@ -48,13 +52,13 @@ export class RecentReviewsComponent implements OnInit {
       if(this.dataReceived!=null && this.dataReceived.length!==0){
         var newTableData:TableData[]=  this.createTable();
         this.dataSource = new MatTableDataSource(newTableData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
       }
 
     })
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {

@@ -21,8 +21,12 @@ export class BestSchoolsComponent implements OnInit {
   displayedColumns: string[] = ['school_name', 'school_score','creation_date'];
   dataSource: MatTableDataSource<TableData>;
   serverData:DbModel[];
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator,{static:false}) set content1(paginator:MatPaginator){
+    this.dataSource.paginator=paginator;
+  }
+  @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
   dataReceived:DbModel[]
 
   constructor(private fetchData:FetchDataService) { }
@@ -38,8 +42,8 @@ export class BestSchoolsComponent implements OnInit {
       if(this.dataReceived!=null && this.dataReceived.length!==0){
         var newTableData:TableData[]=  this.createTable();
         this.dataSource = new MatTableDataSource(newTableData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
       }
     })
     this.fetchData.watchFilertedData.subscribe(res=>{
@@ -50,13 +54,13 @@ export class BestSchoolsComponent implements OnInit {
       if(this.dataReceived!=null && this.dataReceived.length!==0){
         var newTableData:TableData[]=  this.createTable();
         this.dataSource = new MatTableDataSource(newTableData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
       }
 
     })
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
 
     this.fetchData.watchFilertedData.subscribe(res=>{
       console.log("Best school through filter");
@@ -66,8 +70,8 @@ export class BestSchoolsComponent implements OnInit {
       if(this.dataReceived!=null && this.dataReceived.length!==0){
         var newTableData:TableData[]=  this.createTable();
         this.dataSource = new MatTableDataSource(newTableData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
       }
     })
   }
