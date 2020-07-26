@@ -1,8 +1,10 @@
 import { DbModel } from './shared/models/db.model';
 import { FetchDataService } from './fetch-data.service';
-import { Component , OnInit} from '@angular/core';
+import { Component , OnInit,ViewChild, ElementRef } from '@angular/core';
 import {HttpHelperService} from './http-helper.service'
 import { AngularFireDatabase } from '@angular/fire/database'
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +12,7 @@ import { AngularFireDatabase } from '@angular/fire/database'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'UI'
   items:any;
   // school_address = 'School Address';
