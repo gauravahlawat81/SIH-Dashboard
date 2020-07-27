@@ -15,6 +15,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartsModule} from 'ng2-charts'
 import { SearchComponent } from './search/search.component'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatTableExporterModule } from 'mat-table-exporter';
+
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { TeachersearchComponent } from './teachersearch/teachersearch.component';
 import { OfficersearchComponent } from './officersearch/officersearch.component';
@@ -59,7 +61,8 @@ import { DetailedSurveyComponent } from './detailed-survey/detailed-survey.compo
     ChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    NgxGaugeModule
+    NgxGaugeModule,
+    MatTableExporterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

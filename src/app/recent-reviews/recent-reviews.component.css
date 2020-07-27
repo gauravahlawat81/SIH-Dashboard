@@ -1,5 +1,11 @@
 table {
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 1em;
+}
+
+table.mat-table{
+  border-spacing: 1em;
 }
 
 .mat-form-field {
@@ -9,4 +15,16 @@ table {
 
 td, th {
   width: 25%;
+}
+
+td.mat-cell{
+  border-bottom-width: 0;
+  border-bottom-style: none;
+  padding-left: 1em;
+  border-radius: 1em;
+}
+
+th.mat-header-cell{
+  border-bottom-style: none;
+  padding-left: 1em;
 }
