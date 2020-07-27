@@ -27,8 +27,8 @@ import { TitleHeaderComponent } from './title-header/title-header.component';
 import { from } from 'rxjs';
 import { CirclechartComponent } from './circlechart/circlechart.component';
 import { GaugeChartModule } from 'angular-gauge-chart';
-import { DetailedSurveyComponent } from './detailed-survey/detailed-survey.component'
-
+import { DetailedSurveyComponent } from './detailed-survey/detailed-survey.component';
+import { ScoreLineChartComponent } from './score-line-chart/score-line-chart.component'
 
 @NgModule({
   declarations: [
@@ -45,7 +45,8 @@ import { DetailedSurveyComponent } from './detailed-survey/detailed-survey.compo
     BestSchoolsComponent,
     TitleHeaderComponent,
     CirclechartComponent,
-    DetailedSurveyComponent
+    DetailedSurveyComponent,
+    ScoreLineChartComponent
   ],
   imports: [
     GaugeChartModule,
