@@ -14,6 +14,7 @@ import { cloneDeep } from 'lodash';
   styleUrls: ['./score-line-chart.component.css']
 })
 export class ScoreLineChartComponent implements OnInit {
+  selected:string="overall";
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Scores' },
   ];
@@ -27,6 +28,20 @@ export class ScoreLineChartComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [];
+  lineChartOptions:ChartOptions={
+    scales:{
+      yAxes:[{
+        ticks:{
+          max:10,
+          min:0,
+          stepSize:1,
+          beginAtZero:true
+        }
+      }]
+    },
+    responsive:true,
+    maintainAspectRatio:false
+  }
   dataReceived:DbModel[]
   dataSource: MatTableDataSource<TableData>
   SchoolName = "Dummy School"
@@ -45,7 +60,28 @@ export class ScoreLineChartComponent implements OnInit {
         this.SchoolName = this.dataReceived[0].SchoolName
         this.SchoolID = this.dataReceived[0].SchoolID
         this.SchoolAddress = this.dataReceived[0].SchoolAddress
-        this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].OverallReview
+        this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].overallReview
+
+        if(this.dataReceived.length===1){
+          this.fillOverallData();
+        }
+
+        // var hygieneArray:number[]=[];
+        // var labelArray:string[]=[];
+        // if(this.dataReceived.length==1){
+        //   this.dataReceived[0].Records.forEach( res =>{
+        //     res.questions.forEach(data =>{
+        //       if(data.category=="hygiene"){
+        //         hygieneArray.push(data.analysis);
+        //         labelArray.push(res.creationDate);
+        //       }
+        //     })
+        //   })
+        // }
+        // this.lineChartData[0].data=hygieneArray;
+        // this.lineChartData[0].label="Hygiene"
+        // this.lineChartLabels=labelArray;
+        
       }
     })
 
@@ -58,9 +94,108 @@ export class ScoreLineChartComponent implements OnInit {
         this.SchoolName = this.dataReceived[0].SchoolName
         this.SchoolID = this.dataReceived[0].SchoolID
         this.SchoolAddress = this.dataReceived[0].SchoolAddress
-        this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].OverallReview
+        this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].overallReview
+
+        if(this.dataReceived.length===1){
+          this.fillOverallData();
+        }
+
+        // var hygieneArray:number[]=[];
+        // var labelArray:string[]=[];
+        // if(this.dataReceived.length==1){
+        //   this.dataReceived[0].Records.forEach( res =>{
+        //     res.questions.forEach(data =>{
+        //       if(data.category=="hygiene"){
+        //         hygieneArray.push(data.analysis);
+        //         var dd:Date = new Date(res.creationDate);
+        //         var dateString:string = dd.toLocaleDateString();
+        //         labelArray.push(dateString.toString());
+        //       }
+        //     })
+        //   })
+        // }
+        // this.lineChartData[0].data=hygieneArray;
+        // this.lineChartData[0].label="Hygiene";
+        // this.lineChartLabels=labelArray;
       }
     })
+  }
+
+  valueChanged(){
+    if(this.selected==='overall'){
+      this.fillOverallData();
+    }
+    if(this.selected==='hygiene'){
+      this.fillHygieneData();  
+    }
+
+    if(this.selected==='interaction'){
+      this.fillInteractionData();
+    }
+    
+  }
+
+  fillHygieneData(){
+    var hygieneArray:number[]=[];
+        var labelArray:string[]=[];
+        if(this.dataReceived.length==1){
+          this.dataReceived[0].Records.forEach( res =>{
+            res.questions.forEach(data =>{
+              if(data.category=="hygiene"){
+                hygieneArray.push(data.analysis);
+                var dd:Date = new Date(res.creationDate);
+                var dateString:string = dd.toLocaleDateString();
+                labelArray.push(dateString.toString());
+              }
+            })
+          })
+        }
+        this.lineChartData[0].data=hygieneArray;
+        this.lineChartData[0].label="Hygiene";
+        this.lineChartLabels=labelArray;
+  }
+
+  fillInteractionData(){
+    var interactionArray:number[]=[];
+        var labelArray:string[]=[];
+        if(this.dataReceived.length==1){
+          this.dataReceived[0].Records.forEach( res =>{
+            res.questions.forEach(data =>{
+              if(data.category=="interaction"){
+                interactionArray.push(data.analysis);
+                var dd:Date = new Date(res.creationDate);
+                var dateString:string = dd.toLocaleDateString();
+                labelArray.push(dateString.toString());
+              }
+            })
+          })
+        }
+        this.lineChartData[0].data=interactionArray;
+        this.lineChartData[0].label="Interaction";
+        this.lineChartLabels=labelArray;
+
+  }
+
+  fillOverallData(){
+    var overallArray:number[]=[];
+    var labelArray:string[]=[];
+    if(this.dataReceived.length===1){
+      this.dataReceived[0].Records.forEach(res=>{
+        var score=0;
+        res.questions.forEach(data=>{
+          score= score + data.analysis;
+        })
+        score=score/(res.questions.length);
+        overallArray.push(score);
+        var dd:Date = new Date(res.creationDate);
+        var dateString:string = dd.toLocaleDateString();
+        labelArray.push(dateString);
+
+      })
+    }
+    this.lineChartData[0].data=overallArray;
+    this.lineChartData[0].label="Overall Score";
+    this.lineChartLabels=labelArray;
   }
 
 }

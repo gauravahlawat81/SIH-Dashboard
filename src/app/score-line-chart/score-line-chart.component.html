@@ -1,11 +1,21 @@
-<div *ngIf="this.dataReceived.length===1">
-    <canvas baseChart 
+<div *ngIf="this.dataReceived.length===1" style="display: block;">
+  <mat-form-field appearance="fill">
+    <mat-label>Select an option</mat-label>
+    <mat-select [(value)]="selected" (valueChange)="valueChanged()">
+      <mat-option value="overall">Overall Score</mat-option>
+      <mat-option value="hygiene">Hygiene</mat-option>
+      <mat-option value="interaction">Interaction</mat-option>
+    </mat-select>
+  </mat-form-field>
+    <canvas baseChart style="height: 400px;"
+    width="40vw"
       [datasets]="lineChartData"
       [labels]="lineChartLabels"
       [colors]="lineChartColors"
       [legend]="lineChartLegend"
       [chartType]="lineChartType"
-      [plugins]="lineChartPlugins">
+      [plugins]="lineChartPlugins"
+      [options]="lineChartOptions">
     </canvas>
   </div>
   

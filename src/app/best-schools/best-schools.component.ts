@@ -92,10 +92,12 @@ export class BestSchoolsComponent implements OnInit {
       var school_score = 0
       var creationDate
       data.Records.forEach( res => {
+        var quesOverallScore=0;
         res.questions.forEach(ques =>{
-          school_score = school_score + ques.analysis;
+          quesOverallScore = quesOverallScore + ques.analysis;
         })
-        creationDate= new Date(res.CreationDate)
+        school_score = school_score + quesOverallScore/(res.questions.length)
+        creationDate= new Date(res.creationDate)
       })
       school_score=school_score/(data.Records.length)
       createdTableData.push({creation_date:creationDate,school_name:schoolName,school_score:school_score})

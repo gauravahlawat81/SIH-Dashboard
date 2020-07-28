@@ -73,7 +73,7 @@ export class DetailedSurveyComponent implements OnInit {
     
     this.dataReceived.forEach(data => {
       data.Records.forEach( res => {
-        var dt = new Date(res.CreationDate)
+        var dt = new Date(res.creationDate)
         res.questions.forEach( ques => {
           createdTableData.push({creation_date:dt,question:ques.question,answer:ques.answer,analysis:ques.analysis})
         } )

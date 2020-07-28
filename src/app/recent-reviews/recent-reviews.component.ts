@@ -80,8 +80,8 @@ export class RecentReviewsComponent implements OnInit {
       // console.log("School name is ");
       // console.log(schoolName);
       data.Records.forEach( res => {
-        var creationDate = new Date(res.CreationDate)
-        var review = res.OverallReview
+        var creationDate = new Date(res.creationDate)
+        var review = res.overallReview
         createdTableData.push({creation_date:creationDate,review:review,school_name:schoolName})
       })
     })

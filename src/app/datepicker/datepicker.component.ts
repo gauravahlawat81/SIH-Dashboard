@@ -73,7 +73,7 @@ export class DatepickerComponent implements OnInit {
       var previous_record = data.Records;
       var newRecord:DbRecordModel[]=[];
       // iss line se hii filter ho jaa rha, utna bada code likhne ka tension nahi
-      data.Records = data.Records.filter(f=>  new Date(f.CreationDate)>=start_Date && new Date(f.CreationDate)<=end_Date);
+      data.Records = data.Records.filter(f=>  new Date(f.creationDate)>=start_Date && new Date(f.creationDate)<=end_Date);
       // data.Records.forEach( f=>{
       //   // console.log("Processing record");
       //   // console.log(data.Records);

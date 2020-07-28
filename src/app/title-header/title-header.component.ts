@@ -34,7 +34,7 @@ export class TitleHeaderComponent implements OnInit {
         this.SchoolName = this.dataReceived[0].SchoolName
         this.SchoolID = this.dataReceived[0].SchoolID
         this.SchoolAddress = this.dataReceived[0].SchoolAddress
-        this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].OverallReview
+        this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].overallReview
       }
     })
 
@@ -47,7 +47,7 @@ export class TitleHeaderComponent implements OnInit {
         this.SchoolName = this.dataReceived[0].SchoolName
         this.SchoolID = this.dataReceived[0].SchoolID
         this.SchoolAddress = this.dataReceived[0].SchoolAddress
-        this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].OverallReview
+        this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].overallReview
       }
     })
   }

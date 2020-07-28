@@ -18,7 +18,7 @@ export class AppComponent {
   // school_address = 'School Address';
   wholeSchool: any
   constructor(private httpService:HttpHelperService,private fetchData:FetchDataService,private db: AngularFireDatabase){
-    db.list('/Schools').valueChanges().subscribe(res => {
+    db.list('/School').valueChanges().subscribe(res => {
       this.items=res;
       console.log(this.items);
       var school_address = 'School Address'

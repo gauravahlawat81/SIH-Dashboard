@@ -1,12 +1,12 @@
 import { DbQuestionsModel } from './db-questions.model';
 export class DbRecordModel{
-    CreationDate:string;
-    GPSLocation:{
+    creationDate:string;
+    gpslocation:{
         lat:number;
         long:number;
     }
-    OfficerID:number;
-    OverallReview:string;
+    officerID:number;
+    overallReview:string;
     questions:DbQuestionsModel[];
 
 }
