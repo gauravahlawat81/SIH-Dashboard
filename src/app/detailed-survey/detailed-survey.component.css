@@ -17,6 +17,13 @@ td, th {
   width: 25%;
 }
 
+
+.mat-header-cell{
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+
 td.mat-cell{
   border-bottom-width: 0;
   border-bottom-style: none;

@@ -75,9 +75,7 @@ export class ScoreLineChartComponent implements OnInit {
         hitRadius:1,
         hoverRadius:4,
         hoverBorderWidth:1,
-        backgroundColor: '#000000',
         borderWidth:2.25,
-        borderColor:'#000000'
       },
       line:{
         tension:0,
