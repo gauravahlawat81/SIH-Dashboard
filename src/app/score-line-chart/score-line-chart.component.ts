@@ -1,12 +1,13 @@
 import { Component , OnInit,ViewChild, ElementRef } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database'
-import { ChartDataSets, ChartOptions } from 'chart.js';
+import { ChartDataSets, ChartOptions, plugins } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { DbModel } from '../shared/models/db.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableData } from '../bar-chart/bar-chart.component';
 import { FetchDataService } from '../fetch-data.service';
 import { cloneDeep } from 'lodash';
+import 'chartjs-plugin-annotation';
 
 @Component({
   selector: 'app-score-line-chart',
@@ -21,26 +22,76 @@ export class ScoreLineChartComponent implements OnInit {
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
     {
-      borderColor: 'black',
-      backgroundColor: 'rgba(0,0,0,0)',
+      borderColor: '#097BFC',
+      backgroundColor: '#097BFC',
     },
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
-  public lineChartPlugins = [];
-  lineChartOptions:ChartOptions={
+  public lineChartPlugins = [{
+    beforeDraw(chart, easing) {
+      const ctx = chart.ctx;
+      const chartArea = chart.chartArea;
+      const top = chartArea.top; // Use a value of 0 here to include the legend
+
+      ctx.save();
+      ctx.fillStyle = '#F3F5FF';
+
+      ctx.fillRect(chartArea.left, top, chartArea.right - chartArea.left, chartArea.bottom - top);
+      ctx.restore();
+    }
+  }];
+  public lineChartOptions:(ChartOptions & {annotation:any})={
     scales:{
       yAxes:[{
         ticks:{
           max:10,
           min:0,
           stepSize:1,
-          beginAtZero:true
+          beginAtZero:true,
+          showLabelBackdrop:true,
+          fontColor:'#097BFC',
+          fontSize:15
+        },
+        gridLines:{
+          zeroLineColor: '#097BFC',
+          zeroLineWidth: 2.25
+        }
+      }],
+      xAxes:[{
+        ticks:{
+          fontColor:'#097BFC',
+          fontSize:15
+        },
+        gridLines:{
+          zeroLineColor: '#097BFC',
+          zeroLineWidth: 2.25,
         }
       }]
     },
+    elements:{
+      point:{
+        radius:5.5,
+        hitRadius:1,
+        hoverRadius:4,
+        hoverBorderWidth:1,
+        backgroundColor: '#000000',
+        borderWidth:2.25,
+        borderColor:'#000000'
+      },
+      line:{
+        tension:0,
+        fill:false,
+
+      }
+    },
     responsive:true,
-    maintainAspectRatio:false
+    maintainAspectRatio:false,
+    annotation: {
+      drawTime: 'beforeDatasetsDraw',
+      annotations: [{
+      }]
+  }
   }
   dataReceived:DbModel[]
   dataSource: MatTableDataSource<TableData>

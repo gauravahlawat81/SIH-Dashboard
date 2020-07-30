@@ -19,7 +19,7 @@ export class CirclechartComponent implements OnInit {
   public name = 'Score'
   public bottomLabel = '7.0'
   public options = {
-      arcColors: ['rgb(44, 151, 222)', 'lightgray'],
+      arcColors: ['rgb(63, 81, 181)', 'lightgray'],
       arcDelimiters: [75],
       rangeLabel: ['0', '10'],
       needleStartValue: 50,
