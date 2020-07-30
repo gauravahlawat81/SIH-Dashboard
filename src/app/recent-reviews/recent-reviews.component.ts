@@ -10,6 +10,7 @@ export interface TableData{
   creation_date:Date
   review:string
   school_name:string
+  school_id:string
 }
 @Component({
   selector: 'app-recent-reviews',
@@ -17,7 +18,7 @@ export interface TableData{
   styleUrls: ['./recent-reviews.component.css']
 })
 export class RecentReviewsComponent implements OnInit {
-  displayedColumns: string[] = ['creation_date', 'review','school_name'];
+  displayedColumns: string[] = ['school_name','school_id','creation_date', 'review'];
   dataSource: MatTableDataSource<TableData>;
   dataReceived:DbModel[];
   @ViewChild(MatPaginator,{static:false}) set content1(paginator:MatPaginator){
@@ -77,14 +78,25 @@ export class RecentReviewsComponent implements OnInit {
     
     this.dataReceived.forEach(data => {
       var schoolName = data.SchoolName;
+      var id = data.SchoolID;
+      console.log("School ID is "+ id);
+      console.log("Type of ID is ");
+      console.log(typeof(data.SchoolID));
+      
+      
+      
       // console.log("School name is ");
       // console.log(schoolName);
       data.Records.forEach( res => {
         var creationDate = new Date(res.creationDate)
         var review = res.overallReview
-        createdTableData.push({creation_date:creationDate,review:review,school_name:schoolName})
+        createdTableData.push({creation_date:creationDate,review:review,school_name:schoolName,school_id:id})
       })
     })
+    console.log("Retuned table data is ");
+    console.log(createdTableData);
+    
+    
     return createdTableData;
   }
 

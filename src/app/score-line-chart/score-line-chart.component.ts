@@ -94,7 +94,7 @@ export class ScoreLineChartComponent implements OnInit {
   dataReceived:DbModel[]
   dataSource: MatTableDataSource<TableData>
   SchoolName = "Dummy School"
-  SchoolID = -1
+  SchoolID = "-1"
   SchoolAddress = "address of school"
   OverallReview = "overall review"
   constructor(private fetchData:FetchDataService) { }

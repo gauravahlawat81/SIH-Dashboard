@@ -10,7 +10,7 @@
       <!-- ID Column -->
       <ng-container matColumnDef="creation_date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Survey Recorded On </th>
-        <td mat-cell style="background-color: #EDEEEF" *matCellDef="let row"> {{row.creation_date | date:'mediumDate'}} </td>
+        <td mat-cell  *matCellDef="let row"> {{row.creation_date | date:'mediumDate'}} </td>
       </ng-container>
 
       <!-- Progress Column -->
@@ -21,8 +21,13 @@
 
       <!-- Progress Column -->
       <ng-container matColumnDef="school_name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> School  </th>
-        <td mat-cell *matCellDef="let row"> {{row.school_name}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> School Name </th>
+        <td mat-cell style="background-color: #EDEEEF" *matCellDef="let row"> {{row.school_name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="school_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> School ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.school_id}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

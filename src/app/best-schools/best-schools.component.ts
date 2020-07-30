@@ -10,6 +10,7 @@ export interface TableData{
   school_name:string
   school_score:Number
   creation_date:Date
+  school_id:string
 }
 
 @Component({
@@ -18,7 +19,7 @@ export interface TableData{
   styleUrls: ['./best-schools.component.css']
 })
 export class BestSchoolsComponent implements OnInit {
-  displayedColumns: string[] = ['school_name', 'school_score','creation_date'];
+  displayedColumns: string[] = ['school_name', 'school_id','school_score','creation_date'];
   dataSource: MatTableDataSource<TableData>;
   serverData:DbModel[];
   @ViewChild(MatPaginator,{static:false}) set content1(paginator:MatPaginator){
@@ -91,6 +92,7 @@ export class BestSchoolsComponent implements OnInit {
       var schoolName = data.SchoolName
       var school_score = 0
       var creationDate
+      var id = data.SchoolID;
       data.Records.forEach( res => {
         var quesOverallScore=0;
         res.questions.forEach(ques =>{
@@ -100,7 +102,7 @@ export class BestSchoolsComponent implements OnInit {
         creationDate= new Date(res.creationDate)
       })
       school_score=school_score/(data.Records.length)
-      createdTableData.push({creation_date:creationDate,school_name:schoolName,school_score:school_score})
+      createdTableData.push({creation_date:creationDate,school_name:schoolName,school_score:school_score,school_id:id})
     })
     return createdTableData;
   }

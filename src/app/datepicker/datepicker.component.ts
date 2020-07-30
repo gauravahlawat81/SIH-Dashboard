@@ -100,7 +100,7 @@ export class DatepickerComponent implements OnInit {
     // newFilteredData=dateData
   }
   if(schoolid!==""){
-    var schoolidNum = Number(schoolid);
+    var schoolidNum = schoolid;
     newFilteredData = this.serverData.filter(f => f.SchoolID == schoolidNum )  
   }
 
