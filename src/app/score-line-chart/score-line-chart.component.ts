@@ -22,7 +22,7 @@ export class ScoreLineChartComponent implements OnInit {
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
     {
-      borderColor: '#097BFC',
+      borderColor: '#BACAFE',
       backgroundColor: '#097BFC',
     },
   ];

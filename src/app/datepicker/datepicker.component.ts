@@ -27,6 +27,13 @@ export class DatepickerComponent implements OnInit {
   constructor(private fetchData:FetchDataService) { }
   serverData:DbModel[]=[];
   ngOnInit(): void {
+
+    this.fetchData.watchclearFilteredData.subscribe(res=>{
+      if(res===true){
+        this.clearFilter();
+      }
+    })
+
     this.fetchData.watchServerData.subscribe(res=>{
       this.serverData = cloneDeep(res);
     })

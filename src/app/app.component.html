@@ -1,5 +1,8 @@
 <mat-toolbar color="primary">
-    <span>Dashboard</span>
+    <button mat-icon-button (click)="reloadTheSite()">
+        <mat-icon>home</mat-icon>
+    </button>
+    <span (click)="reloadTheSite()">Dashboard</span>
 </mat-toolbar>
 <div>
     <div class="ml-3 mr-3 mb-3 mt-3">

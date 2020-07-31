@@ -13,6 +13,9 @@ export class FetchDataService {
   private filteredDate:BehaviorSubject<any> = new BehaviorSubject<any>(null);
   watchFilertedData = this.filteredDate.asObservable();
 
+  private clearFilteredData:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  watchclearFilteredData = this.clearFilteredData.asObservable();
+
   changeServerData(val:any){
     console.log("ServerData has been changed and new value is ");
     console.log(val);
@@ -23,6 +26,10 @@ export class FetchDataService {
 
   changeFilteredDate(val:any){
     this.filteredDate.next(val);
+  }
+
+  changeClearFilteredData(val:boolean){
+    this.clearFilteredData.next(val);
   }
 
   getServerData(){

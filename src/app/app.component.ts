@@ -43,4 +43,7 @@ export class AppComponent {
   
 
   // }
+  reloadTheSite(){
+    this.fetchData.changeClearFilteredData(true);
+  }
 }
