@@ -100,5 +100,10 @@ export class RecentReviewsComponent implements OnInit {
     return createdTableData;
   }
 
+  rowClicked(id:number){
+    console.log("Row with ID " + id + "was clicked");
+    
+  }
+
 
 }

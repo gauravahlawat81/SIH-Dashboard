@@ -48,6 +48,7 @@ export class TitleHeaderComponent implements OnInit {
         this.SchoolID = this.dataReceived[0].SchoolID
         this.SchoolAddress = this.dataReceived[0].SchoolAddress
         this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].overallReview
+        this.OverallReview ="shckjashdjkashclashfilhciladshcisdhcdsuichdiochedichweiochweriochewoichewochewochewiochewchewoicewiocheioewhcewihcweiochweinceiohcweiochweicnweilhwioch"
       }
     })
   }

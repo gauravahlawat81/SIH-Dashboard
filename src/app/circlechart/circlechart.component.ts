@@ -65,10 +65,10 @@ export class CirclechartComponent implements OnInit {
       })
       console.log("the ivs is "+ivs)
       ivs=ivs/data.Records.length
-      score=score+ivs
+      score=score+ivs;
     })  
     console.log("the score is "+score)
-    score=score/this.dataReceived.length
+    score=+((score/this.dataReceived.length).toFixed(2))
     return score
   }
 

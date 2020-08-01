@@ -101,7 +101,7 @@ export class BestSchoolsComponent implements OnInit {
         school_score = school_score + quesOverallScore/(res.questions.length)
         creationDate= new Date(res.creationDate)
       })
-      school_score=school_score/(data.Records.length)
+      school_score=+((school_score/(data.Records.length)).toFixed(2));
       createdTableData.push({creation_date:creationDate,school_name:schoolName,school_score:school_score,school_id:id})
     })
     return createdTableData;
