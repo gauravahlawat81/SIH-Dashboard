@@ -53,7 +53,7 @@ export class BarChartComponent implements OnInit {
   ngOnInit(): void {
     this.fetchData.watchServerData.subscribe(res=>{
       this.dataReceived=cloneDeep(res);
-      console.log("Data received in first table through server");
+      console.log("Data received in bar chart through server");
       console.log(this.dataReceived);
       
       if(this.dataReceived!=null && this.dataReceived.length!==0){
@@ -62,7 +62,7 @@ export class BarChartComponent implements OnInit {
     })
     this.fetchData.watchFilertedData.subscribe(res=>{
       this.dataReceived=cloneDeep(res);
-      console.log("Data received in first table");
+      console.log("Data received in bar chart by filter");
       console.log(this.dataReceived);
       
       if(this.dataReceived!=null && this.dataReceived.length!==0){

@@ -6,7 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FetchDataService } from '../fetch-data.service';
 import { cloneDeep } from 'lodash';
 import { FormControl } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import { timeout } from 'rxjs/operators';
 export interface TableData{
   creation_date:Date
   review:string
@@ -33,7 +34,7 @@ export class PdfMakerComponent implements OnInit {
   OverallPrevScore = 0
   HygeneScore = 0
   HygenePrevScore = 0
-  constructor(private fetchData:FetchDataService) { }
+  constructor(private fetchData:FetchDataService,private router:Router) { }
 
   ngOnInit(): void {
     this.fetchData.watchServerData.subscribe(res=>{
@@ -111,6 +112,11 @@ export class PdfMakerComponent implements OnInit {
     })
     
   })
+  }
+  reloadTheSite(){
+    
+    this.fetchData.changeClearFilteredData(true);
+    this.router.navigate(['']);
   }
 
   }

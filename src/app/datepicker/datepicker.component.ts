@@ -145,6 +145,10 @@ export class DatepickerComponent implements OnInit {
     
     var newFilteredData = this.serverData
     this.fetchData.changeFilteredDate(this.serverData);
+    console.log("After clearing filter");
+    console.log(newFilteredData);
+    
+    
     
   }
 
