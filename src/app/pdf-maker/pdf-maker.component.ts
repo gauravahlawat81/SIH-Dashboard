@@ -1,0 +1,103 @@
+import { Component, OnInit, ElementRef ,ViewChild} from '@angular/core';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+import { DbModel } from '../shared/models/db.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { FetchDataService } from '../fetch-data.service';
+import { cloneDeep } from 'lodash';
+
+export interface TableData{
+  creation_date:Date
+  review:string
+  school_name:string
+}
+
+@Component({
+  selector: 'app-pdf-maker',
+  templateUrl: './pdf-maker.component.html',
+  styleUrls: ['./pdf-maker.component.css']
+})
+
+export class PdfMakerComponent implements OnInit {
+  dataReceived:DbModel[]
+  dataSource: MatTableDataSource<TableData>
+  SchoolName = "Dummy School"
+  SchoolID = "-1"
+  SchoolAddress = "address of school"
+  OverallReview = "overall review"
+  Options:Date[] = []
+  constructor(private fetchData:FetchDataService) { }
+
+  ngOnInit(): void {
+    this.fetchData.watchServerData.subscribe(res=>{
+      this.dataReceived=cloneDeep(res);
+      console.log("Data received in review table through server data");
+      console.log(this.dataReceived);
+      
+      if(this.dataReceived!=null && this.dataReceived.length!==0){
+        this.SchoolName = this.dataReceived[0].SchoolName
+        this.SchoolID = this.dataReceived[0].SchoolID
+        this.SchoolAddress = this.dataReceived[0].SchoolAddress
+        this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].overallReview
+        this.Options = this.getOptions()
+      }
+    })
+
+    this.fetchData.watchFilertedData.subscribe(res=>{
+      this.dataReceived=cloneDeep(res);
+      console.log("Data received in review  table through filter");
+      console.log(this.dataReceived);
+      
+      if(this.dataReceived!=null && this.dataReceived.length!==0){
+        this.SchoolName = this.dataReceived[0].SchoolName
+        this.SchoolID = this.dataReceived[0].SchoolID
+        this.SchoolAddress = this.dataReceived[0].SchoolAddress
+        this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].overallReview
+        this.OverallReview ="shckjashdjkashclashfilhciladshcisdhcdsuichdiochedichweiochweriochewoichewochewochewiochewchewoicewiocheioewhcewihcweiochweinceiohcweiochweicnweilhwioch"
+      }
+    })
+  }
+  getOptions(): Date[] {
+    var ans:Date[] = []
+    this.dataReceived.forEach(data => {
+        data.Records.forEach( rec => {
+          ans.push(new Date(rec.creationDate))
+        })
+    })
+    return ans
+  }
+
+  loadImage(url) {
+    return new Promise((resolve) => {
+      console.log("sasas")
+      let img = new Image()
+      img.onload = () => resolve(img)
+      img.src = url
+      console.log("sasas")
+    })
+  }
+
+  convetToPDF()
+  {
+    console.log("I was clicked")
+    var data = document.getElementById('contentToConvert')
+    console.log(data)
+    html2canvas(data).then(canvas => {
+    var imgWidth = 208
+    var pageHeight = 295
+    console.log("sasas")
+    var imgHeight = canvas.height * imgWidth / canvas.width
+    var heightLeft = imgHeight
+    this.loadImage(canvas.toDataURL('image/png')).then((logo) => {
+      console.log("sasas")
+      let pdf = new jspdf('p', 'mm', 'a4')
+      var position = 0
+      pdf.addImage(logo, 'PNG', 0, position, imgWidth, imgHeight)
+      pdf.save('new-file.pdf')
+    })
+    
+  })
+  }
+
+  }
+

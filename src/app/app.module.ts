@@ -30,6 +30,7 @@ import { GaugeChartModule } from 'angular-gauge-chart';
 import { DetailedSurveyComponent } from './detailed-survey/detailed-survey.component';
 import { ScoreLineChartComponent } from './score-line-chart/score-line-chart.component';
 import { ShowRankingComponent } from './show-ranking/show-ranking.component'
+import { PdfMakerComponent } from './pdf-maker/pdf-maker.component'
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ShowRankingComponent } from './show-ranking/show-ranking.component'
     CirclechartComponent,
     DetailedSurveyComponent,
     ScoreLineChartComponent,
-    ShowRankingComponent
+    ShowRankingComponent,
+    PdfMakerComponent,
   ],
   imports: [
     GaugeChartModule,
