@@ -102,7 +102,7 @@ export class BarChartComponent implements OnInit {
     })
 
     this.barChartData[0].data = dataArray;
-    this.barChartData[0].label = 'Number of Records Recorded on a Particular Day'
+    this.barChartData[0].label = 'Number of Surveys Recorded on a Particular Day'
     this.barChartLabels = labelArray;
   }
 

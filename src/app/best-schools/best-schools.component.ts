@@ -20,7 +20,7 @@ export interface TableData{
   styleUrls: ['./best-schools.component.css']
 })
 export class BestSchoolsComponent implements OnInit {
-  displayedColumns: string[] = ['school_name', 'school_id','school_score','creation_date','district'];
+  displayedColumns: string[] = ['id','school_name', 'school_id','school_score','creation_date','district'];
   dataSource: MatTableDataSource<TableData>;
   serverData:DbModel[];
   @ViewChild(MatPaginator,{static:false}) set content1(paginator:MatPaginator){
@@ -106,6 +106,11 @@ export class BestSchoolsComponent implements OnInit {
       school_score=+((school_score/(data.Records.length)).toFixed(2));
       createdTableData.push({creation_date:creationDate,school_name:schoolName,school_score:school_score,school_id:id,district:schoolDistrict})
     })
+
+    createdTableData.sort((a:TableData,b:TableData)=>{
+      return (+b.school_score - (+a.school_score));
+    })
+
     return createdTableData;
   }
 }

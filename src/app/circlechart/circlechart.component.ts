@@ -1,8 +1,9 @@
+import { ShowRankingComponent } from './../show-ranking/show-ranking.component';
 import { cloneDeep } from 'lodash';
 import { DbModel } from './../shared/models/db.model';
 import { FetchDataService } from './../fetch-data.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
-
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
@@ -24,7 +25,14 @@ export class CirclechartComponent implements OnInit {
       rangeLabel: ['0', '10'],
       needleStartValue: 50,
   }
-  constructor(private fetchData:FetchDataService) { }
+  constructor(private fetchData:FetchDataService,public dialog:MatDialog) { }
+
+  openDialog():void{
+    const dialogRef = this.dialog.open(ShowRankingComponent,{
+      width:'75%',
+      height:'75%'
+    });
+  }
 
   ngOnInit(): void {
     this.fetchData.watchServerData.subscribe(res=>{
@@ -71,5 +79,7 @@ export class CirclechartComponent implements OnInit {
     score=+((score/this.dataReceived.length).toFixed(2))
     return score
   }
+
+
 
 }
