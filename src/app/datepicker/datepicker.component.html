@@ -5,7 +5,7 @@
         Apply Filters
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <form class="example-form">
+    <!-- <form class="example-form">
       <mat-form-field class="example-full-width">
         <input type="text"
               placeholder="Search School"
@@ -13,6 +13,21 @@
               matInput
               [formControl]="schoolFilterForm"
               >
+      </mat-form-field>
+    </form> -->
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input type="text"
+               placeholder="Search For a School"
+               aria-label="Number"
+               matInput
+               [formControl]="schoolFilterForm"
+               [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </form>
 

@@ -24,6 +24,8 @@ export class DatepickerComponent implements OnInit {
   endDateFilterForm = new FormControl();
   filteredOptions: Observable<string[]>;
 
+  options: string[] = [];
+
   constructor(private fetchData:FetchDataService) { }
   serverData:DbModel[]=[];
   ngOnInit(): void {
@@ -36,11 +38,21 @@ export class DatepickerComponent implements OnInit {
 
     this.fetchData.watchServerData.subscribe(res=>{
       this.serverData = cloneDeep(res);
+      if(this.serverData!=null){
+        this.fillOption();
+      }
     })
     this.filteredOptions = this.schoolFilterForm.valueChanges
       .pipe(
         startWith(''),
-      )
+        map(value => this._filter(value))
+      );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 
@@ -59,17 +71,23 @@ export class DatepickerComponent implements OnInit {
   }
 
   applyFilter(){
-  console.log("Before filter");
-  console.log(this.serverData);
+  // console.log("Before filter");
+  // console.log(this.serverData);
   var start_Date = new Date(this.startDateFilterForm.value);
   var end_Date = new Date(this.endDateFilterForm.value);
   var schoolid="";
   if(this.schoolFilterForm.value!==null){
-    schoolid = this.schoolFilterForm.value.toString()
+    var valueString:string = this.schoolFilterForm.value.toString();
+    var spilitted = valueString.split(':');
+    schoolid = spilitted[1].toString();
+    schoolid = schoolid.trim();
+    console.log("School ID is ");
+    console.log(schoolid);
+    
   }
-  console.log("Start Date " + this.startDateFilterForm.value);
-  console.log("End Date " +  this.endDateFilterForm.value);
-  console.log("school id is "+schoolid)
+  // console.log("Start Date " + this.startDateFilterForm.value);
+  // console.log("End Date " +  this.endDateFilterForm.value);
+  // console.log("school id is "+schoolid)
   
   let newFilteredData:DbModel[] = cloneDeep(this.serverData);
   let dummyFilter:DbModel[] = this.serverData;
@@ -101,8 +119,8 @@ export class DatepickerComponent implements OnInit {
     })
     // console.log("Records that could pass the date filter");
     // console.log(newRecord)
-    console.log("After filter data becomes");
-    console.log(newFilteredData);
+    // console.log("After filter data becomes");
+    // console.log(newFilteredData);
     
     // newFilteredData=dateData
   }
@@ -124,23 +142,22 @@ export class DatepickerComponent implements OnInit {
     this.startDateFilterForm.setValue("")
     this.endDateFilterForm.setValue("")
     this.schoolFilterForm.setValue("")
-    console.log("Before clearing")
-    console.log(newFilteredData)
-    console.log("After clearing new Filtered data is")
-    console.log(newFilteredData)
-    console.log("and server data is which is fetched from service ");
-
-    console.log(this.fetchData.getServerData());
-    console.log("Server data stored in local variable");
-    console.log(this.serverData);
-    
-    if(this.fetchData.getServerData()== this.serverData){
-      console.log("The two are exactly same");
-      
-    }
     
     var newFilteredData = this.serverData
     this.fetchData.changeFilteredDate(this.serverData);
     
+  }
+
+  fillOption(){
+    this.serverData.forEach(res=>{
+      var searchValue = res.SchoolName + " , ID : "+res.SchoolID;
+      this.options.push(searchValue);
+    })
+    console.log("New Options array is");
+    console.log(this.options);
+    
+    
+    
+
   }
 }
