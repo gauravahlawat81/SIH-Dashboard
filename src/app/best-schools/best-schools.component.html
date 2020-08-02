@@ -1,4 +1,4 @@
-<!-- <div *ngIf="this.dataReceived.length!==1"> -->
+<div *ngIf="this.dataReceived.length!==1">
   <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
@@ -52,4 +52,4 @@
     
       <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
-<!-- </div> -->
+</div>

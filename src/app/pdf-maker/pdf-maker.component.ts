@@ -5,6 +5,7 @@ import { DbModel } from '../shared/models/db.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { FetchDataService } from '../fetch-data.service';
 import { cloneDeep } from 'lodash';
+import { FormControl } from '@angular/forms';
 
 export interface TableData{
   creation_date:Date
@@ -26,6 +27,12 @@ export class PdfMakerComponent implements OnInit {
   SchoolAddress = "address of school"
   OverallReview = "overall review"
   Options:Date[] = []
+  SchoolDistrict = "district"
+  startDateFilterForm = new FormControl()
+  OverallScore = 0
+  OverallPrevScore = 0
+  HygeneScore = 0
+  HygenePrevScore = 0
   constructor(private fetchData:FetchDataService) { }
 
   ngOnInit(): void {
@@ -38,6 +45,7 @@ export class PdfMakerComponent implements OnInit {
         this.SchoolName = this.dataReceived[0].SchoolName
         this.SchoolID = this.dataReceived[0].SchoolID
         this.SchoolAddress = this.dataReceived[0].SchoolAddress
+        this.SchoolDistrict = this.dataReceived[0].SchoolDistrict
         this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].overallReview
         this.Options = this.getOptions()
       }
@@ -52,11 +60,16 @@ export class PdfMakerComponent implements OnInit {
         this.SchoolName = this.dataReceived[0].SchoolName
         this.SchoolID = this.dataReceived[0].SchoolID
         this.SchoolAddress = this.dataReceived[0].SchoolAddress
+        this.SchoolDistrict = this.dataReceived[0].SchoolDistrict
         this.OverallReview = this.dataReceived[0].Records[this.dataReceived[0].Records.length-1].overallReview
-        this.OverallReview ="shckjashdjkashclashfilhciladshcisdhcdsuichdiochedichweiochweriochewoichewochewochewiochewchewoicewiocheioewhcewihcweiochweinceiohcweiochweicnweilhwioch"
       }
     })
   }
+  startDateSelected:string="";
+  startDate(val){
+    this.startDateSelected = this.startDateFilterForm.value;    
+  }
+
   getOptions(): Date[] {
     var ans:Date[] = []
     this.dataReceived.forEach(data => {

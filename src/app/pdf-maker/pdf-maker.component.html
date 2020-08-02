@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-center">
         <mat-form-field appearance="fill">
             <mat-label>Record Date</mat-label>
-            <mat-select>
+            <mat-select [formControl]="startDateFilterForm">
               <mat-option *ngFor="let option of Options" [value]="option">
                 {{option  | date:'mediumDate'}}
               </mat-option>
@@ -24,7 +24,12 @@
     <hr/>
         <pre id="contentToConvert">
             <div >
-                <app-title-header></app-title-header>
+                <h2 class="customWrap"><b>School Name</b> : {{SchoolName}}</h2>
+                <h3 class="customWrap"><b>School ID</b> : {{SchoolID}}</h3>
+                <h3 class="customWrap"><b>Address</b> : {{SchoolAddress}}</h3>
+                <h3 class="customWrap"><b>District</b> : {{SchoolDistrict}}</h3>
+                <h3 class="customWrap"><b>Most Recent Review</b> : {{OverallReview}} </h3>
+                
                 <app-full-detailed-table></app-full-detailed-table>
                 <div class="mt-3 mb-3">
                     <app-score-line-chart></app-score-line-chart>
