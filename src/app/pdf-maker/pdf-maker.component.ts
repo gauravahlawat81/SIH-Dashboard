@@ -79,6 +79,7 @@ export class PdfMakerComponent implements OnInit {
 
   convetToPDF()
   {
+    console.log(this.dataReceived)
     console.log("I was clicked")
     var data = document.getElementById('contentToConvert')
     console.log(data)

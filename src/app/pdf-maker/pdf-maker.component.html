@@ -1,5 +1,5 @@
 <div>
-    <div>
+    <div class="d-flex justify-content-center">
         <mat-form-field appearance="fill">
             <mat-label>Record Date</mat-label>
             <mat-select>
@@ -9,19 +9,23 @@
             </mat-select>
           </mat-form-field>
     </div>
+    <hr/>
+    <div  class="d-flex justify-content-center">
     <div class="example-button-row">
         <button mat-raised-button color="primary" value="Convert" (click)="convetToPDF()">
             Export
         </button>
     </div>
-    
-    <div>
-        The report 
     </div>
-
+    <hr/>
+    <div  class="d-flex justify-content-center">
+       <h1>The below report can be exported</h1> 
+    </div>
+    <hr/>
         <pre id="contentToConvert">
             <div >
-                <h1>sasasajbdksvkhdvkhds</h1>
+                <app-title-header></app-title-header>
+                <app-full-detailed-table></app-full-detailed-table>
                 <div class="mt-3 mb-3">
                     <app-score-line-chart></app-score-line-chart>
                 </div>

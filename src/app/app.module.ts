@@ -31,7 +31,8 @@ import { DetailedSurveyComponent } from './detailed-survey/detailed-survey.compo
 import { ScoreLineChartComponent } from './score-line-chart/score-line-chart.component';
 import { ShowRankingComponent } from './show-ranking/show-ranking.component'
 import { PdfMakerComponent } from './pdf-maker/pdf-maker.component';
-import { WrapperComponent } from './wrapper/wrapper.component'
+import { WrapperComponent } from './wrapper/wrapper.component';
+import { FullDetailedTableComponent } from './full-detailed-table/full-detailed-table.component'
 
 const routes:Routes =[
   {path:'',component:WrapperComponent,pathMatch:'full'},
@@ -58,6 +59,7 @@ const routes:Routes =[
     ShowRankingComponent,
     PdfMakerComponent,
     WrapperComponent,
+    FullDetailedTableComponent,
   ],
   imports: [
     GaugeChartModule,
