@@ -28,7 +28,8 @@ import { from } from 'rxjs';
 import { CirclechartComponent } from './circlechart/circlechart.component';
 import { GaugeChartModule } from 'angular-gauge-chart';
 import { DetailedSurveyComponent } from './detailed-survey/detailed-survey.component';
-import { ScoreLineChartComponent } from './score-line-chart/score-line-chart.component'
+import { ScoreLineChartComponent } from './score-line-chart/score-line-chart.component';
+import { ShowRankingComponent } from './show-ranking/show-ranking.component'
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ScoreLineChartComponent } from './score-line-chart/score-line-chart.com
     TitleHeaderComponent,
     CirclechartComponent,
     DetailedSurveyComponent,
-    ScoreLineChartComponent
+    ScoreLineChartComponent,
+    ShowRankingComponent
   ],
   imports: [
     GaugeChartModule,

@@ -11,6 +11,7 @@ export interface TableData{
   school_score:Number
   creation_date:Date
   school_id:string
+  district:string
 }
 
 @Component({
@@ -19,7 +20,7 @@ export interface TableData{
   styleUrls: ['./best-schools.component.css']
 })
 export class BestSchoolsComponent implements OnInit {
-  displayedColumns: string[] = ['school_name', 'school_id','school_score','creation_date'];
+  displayedColumns: string[] = ['school_name', 'school_id','school_score','creation_date','district'];
   dataSource: MatTableDataSource<TableData>;
   serverData:DbModel[];
   @ViewChild(MatPaginator,{static:false}) set content1(paginator:MatPaginator){
@@ -28,7 +29,7 @@ export class BestSchoolsComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
     this.dataSource.sort = sort;
   }
-  dataReceived:DbModel[]
+  dataReceived:DbModel[]=[]
 
   constructor(private fetchData:FetchDataService) { }
 
@@ -93,6 +94,7 @@ export class BestSchoolsComponent implements OnInit {
       var school_score = 0
       var creationDate
       var id = data.SchoolID;
+      var schoolDistrict = data.SchoolDistrict;
       data.Records.forEach( res => {
         var quesOverallScore=0;
         res.questions.forEach(ques =>{
@@ -102,7 +104,7 @@ export class BestSchoolsComponent implements OnInit {
         creationDate= new Date(res.creationDate)
       })
       school_score=+((school_score/(data.Records.length)).toFixed(2));
-      createdTableData.push({creation_date:creationDate,school_name:schoolName,school_score:school_score,school_id:id})
+      createdTableData.push({creation_date:creationDate,school_name:schoolName,school_score:school_score,school_id:id,district:schoolDistrict})
     })
     return createdTableData;
   }
