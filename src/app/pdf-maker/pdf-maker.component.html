@@ -1,0 +1,27 @@
+<div *ngIf="this.dataReceived.length===1">
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Record Date</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let option of Options" [value]="option">
+                {{option  | date:'mediumDate'}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="example-button-row">
+        <button mat-raised-button color="primary" value="Convert" (click)="convetToPDF()">
+            Export
+        </button>
+    </div>
+    
+    <div>
+        The report 
+    </div>
+
+        <pre id="contentToConvert">
+            <div >
+                The report 
+            </div>
+        </pre>
+</div>
