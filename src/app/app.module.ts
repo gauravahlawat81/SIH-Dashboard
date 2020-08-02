@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { RouterModule } from '@angular/router';
+import { Routes,RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartsModule} from 'ng2-charts'
 import { SearchComponent } from './search/search.component'
@@ -29,7 +29,14 @@ import { CirclechartComponent } from './circlechart/circlechart.component';
 import { GaugeChartModule } from 'angular-gauge-chart';
 import { DetailedSurveyComponent } from './detailed-survey/detailed-survey.component';
 import { ScoreLineChartComponent } from './score-line-chart/score-line-chart.component';
-import { PdfMakerComponent } from './pdf-maker/pdf-maker.component'
+import { ShowRankingComponent } from './show-ranking/show-ranking.component'
+import { PdfMakerComponent } from './pdf-maker/pdf-maker.component';
+import { WrapperComponent } from './wrapper/wrapper.component'
+
+const routes:Routes =[
+  {path:'',component:WrapperComponent,pathMatch:'full'},
+  {path:'download', component:PdfMakerComponent}
+]
 
 @NgModule({
   declarations: [
@@ -48,7 +55,9 @@ import { PdfMakerComponent } from './pdf-maker/pdf-maker.component'
     CirclechartComponent,
     DetailedSurveyComponent,
     ScoreLineChartComponent,
-    PdfMakerComponent
+    ShowRankingComponent,
+    PdfMakerComponent,
+    WrapperComponent,
   ],
   imports: [
     GaugeChartModule,
@@ -60,7 +69,7 @@ import { PdfMakerComponent } from './pdf-maker/pdf-maker.component'
     ReactiveFormsModule,
     HttpClientModule,
     AppMaterialModule,
-    RouterModule,
+    RouterModule.forRoot(routes),
     ChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
