@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component , OnInit,ViewChild, ElementRef } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database'
 import { ChartDataSets, ChartOptions, plugins } from 'chart.js';
@@ -97,7 +98,7 @@ export class ScoreLineChartComponent implements OnInit {
   SchoolID = "-1"
   SchoolAddress = "address of school"
   OverallReview = "overall review"
-  constructor(private fetchData:FetchDataService) { }
+  constructor(private fetchData:FetchDataService,private datepipe:DatePipe) { }
 
   ngOnInit(): void {
     this.fetchData.watchServerData.subscribe(res=>{
@@ -174,12 +175,8 @@ export class ScoreLineChartComponent implements OnInit {
     if(this.selected==='overall'){
       this.fillOverallData();
     }
-    if(this.selected==='hygiene'){
-      this.fillHygieneData();  
-    }
-
-    if(this.selected==='interaction'){
-      this.fillInteractionData();
+    else{
+      this.fillCategoricalData(this.selected);
     }
     
   }
@@ -234,10 +231,10 @@ export class ScoreLineChartComponent implements OnInit {
         res.questions.forEach(data=>{
           score= score + data.analysis;
         })
-        score=score/(res.questions.length);
+        score=+((score/(res.questions.length)).toFixed(2));
         overallArray.push(score);
         var dd:Date = new Date(res.creationDate);
-        var dateString:string = dd.toLocaleDateString();
+        var dateString:string = this.datepipe.transform(dd,'MMM d, y');
         labelArray.push(dateString);
 
       })
@@ -245,6 +242,35 @@ export class ScoreLineChartComponent implements OnInit {
     this.lineChartData[0].data=overallArray;
     this.lineChartData[0].label="Overall Score";
     this.lineChartLabels=labelArray;
+  }
+
+  fillCategoricalData(category:string){
+    var dataArray:number[]=[];
+        var labelArray:string[]=[];
+        var finalScore:number=0;
+        if(this.dataReceived.length==1){
+          this.dataReceived[0].Records.forEach( res =>{
+            var analysisValue:number=0;
+            var occur:number = 0;
+            res.questions.forEach(data =>{
+              if(data.category==category){
+                // dataArray.push(data.analysis);
+                analysisValue = analysisValue + data.analysis;
+                occur = occur + 1;
+                
+              }
+            })
+            finalScore = +((analysisValue/occur).toFixed(2));
+            var dd:Date = new Date(res.creationDate);
+            var dateString:string = dd.toLocaleDateString();
+            labelArray.push(dateString.toString());
+            dataArray.push(finalScore);
+          })
+        }
+        this.lineChartData[0].data=dataArray;
+        this.lineChartData[0].label=category;
+        this.lineChartLabels=labelArray;
+
   }
 
 }

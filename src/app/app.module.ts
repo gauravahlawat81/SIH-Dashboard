@@ -16,7 +16,6 @@ import { ChartsModule} from 'ng2-charts'
 import { SearchComponent } from './search/search.component'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatTableExporterModule } from 'mat-table-exporter';
-
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { TeachersearchComponent } from './teachersearch/teachersearch.component';
 import { OfficersearchComponent } from './officersearch/officersearch.component';
@@ -33,10 +32,16 @@ import { ShowRankingComponent } from './show-ranking/show-ranking.component'
 import { PdfMakerComponent } from './pdf-maker/pdf-maker.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { FullDetailedTableComponent } from './full-detailed-table/full-detailed-table.component'
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
+import {DatePipe} from '@angular/common';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { OtherReviewsComponent } from './other-reviews/other-reviews.component';
 
 const routes:Routes =[
   {path:'',component:WrapperComponent,pathMatch:'full'},
-  {path:'download', component:PdfMakerComponent}
+  {path:'download', component:PdfMakerComponent},
+  {path:'appointment',component:AppointmentComponent},
+  {path:'reviews',component:OtherReviewsComponent}
 ]
 
 @NgModule({
@@ -60,6 +65,8 @@ const routes:Routes =[
     PdfMakerComponent,
     WrapperComponent,
     FullDetailedTableComponent,
+    AppointmentComponent,
+    OtherReviewsComponent,
   ],
   imports: [
     GaugeChartModule,
@@ -76,9 +83,10 @@ const routes:Routes =[
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     NgxGaugeModule,
-    MatTableExporterModule
+    MatTableExporterModule,
+    PDFExportModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
